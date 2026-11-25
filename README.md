@@ -6,8 +6,7 @@
 
 A retro MIDI workstation with a green-phosphor CRT interface: page-based, keyboard commands, mouse as a light
 pen. It renders into a fixed 512 × 384 indexed canvas and upscales through a CRT pass, so it shows correctly
-on a small 4:3 monitor. Plan and milestones: [PLAN.md](PLAN.md). Contributor rules: [CLAUDE.md](CLAUDE.md).
-Screen design: [docs/screens.md](docs/screens.md).
+on a small 4:3 monitor.
 
 Status: **M0 (bootstrap and display)**. Window, CRT pass, display profiles, command line, pages 1 / S / H and the
 test card. No audio yet.
