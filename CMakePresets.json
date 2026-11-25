@@ -1,0 +1,62 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": { "major": 3, "minor": 24, "patch": 0 },
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}"
+        },
+        {
+            "name": "mac-base",
+            "hidden": true,
+            "inherits": "base",
+            "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Darwin" },
+            "cacheVariables": {
+                "CMAKE_OSX_ARCHITECTURES": "arm64",
+                "CMAKE_OSX_DEPLOYMENT_TARGET": "13.0"
+            }
+        },
+        {
+            "name": "win-base",
+            "hidden": true,
+            "inherits": "base",
+            "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Windows" },
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "cl",
+                "CMAKE_CXX_COMPILER": "cl"
+            }
+        },
+        { "name": "mac-debug", "inherits": "mac-base", "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" } },
+        { "name": "mac-release", "inherits": "mac-base", "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" } },
+        { "name": "win-debug", "inherits": "win-base", "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" } },
+        { "name": "win-release", "inherits": "win-base", "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" } },
+        {
+            "name": "ci-mac",
+            "inherits": "mac-debug",
+            "cacheVariables": { "PHOS_WERROR": "ON" }
+        },
+        {
+            "name": "ci-win",
+            "inherits": "win-debug",
+            "cacheVariables": { "PHOS_WERROR": "ON" }
+        }
+    ],
+    "buildPresets": [
+        { "name": "mac-debug", "configurePreset": "mac-debug" },
+        { "name": "mac-release", "configurePreset": "mac-release" },
+        { "name": "win-debug", "configurePreset": "win-debug" },
+        { "name": "win-release", "configurePreset": "win-release" },
+        { "name": "ci-mac", "configurePreset": "ci-mac" },
+        { "name": "ci-win", "configurePreset": "ci-win" }
+    ],
+    "testPresets": [
+        { "name": "mac-debug", "configurePreset": "mac-debug", "output": { "outputOnFailure": true } },
+        { "name": "mac-release", "configurePreset": "mac-release", "output": { "outputOnFailure": true } },
+        { "name": "win-debug", "configurePreset": "win-debug", "output": { "outputOnFailure": true } },
+        { "name": "win-release", "configurePreset": "win-release", "output": { "outputOnFailure": true } },
+        { "name": "ci-mac", "configurePreset": "ci-mac", "output": { "outputOnFailure": true } },
+        { "name": "ci-win", "configurePreset": "ci-win", "output": { "outputOnFailure": true } }
+    ]
+}

@@ -1,0 +1,12 @@
+Checks: >
+  -*,
+  bugprone-*,
+  -bugprone-easily-swappable-parameters,
+  performance-*,
+  modernize-*,
+  -modernize-use-trailing-return-type,
+  -modernize-avoid-c-arrays,
+  readability-braces-around-statements,
+  readability-implicit-bool-conversion
+WarningsAsErrors: ''
+HeaderFilterRegex: 'src/.*'

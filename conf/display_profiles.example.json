@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "default": {
+    "fullscreen": false,
+    "autoApply": true,
+    "scale": "FIT",
+    "panelAspect": "AUTO",
+    "overscan": { "left": 0.0, "right": 0.0, "top": 0.0, "bottom": 0.0 },
+    "theme": "GREEN",
+    "crt": {
+      "enabled": true, "scanlines": 0.45, "mask": 0.15, "bloom": 0.35, "persistence": 0.4,
+      "vignette": 0.25, "curvature": 0.0, "brightness": 0.0
+    }
+  },
+  "monitors": [
+    {
+      "monitor": "EXAMPLE 4:3 LCD BOARD",
+      "fullscreen": true,
+      "autoApply": true,
+      "scale": "FIT",
+      "panelAspect": "4:3",
+      "overscan": { "left": 0.02, "right": 0.02, "top": 0.015, "bottom": 0.015 },
+      "theme": "GREEN",
+      "crt": {
+        "enabled": true, "scanlines": 0.5, "mask": 0.1, "bloom": 0.35, "persistence": 0.4,
+        "vignette": 0.2, "curvature": 0.0, "brightness": 0.0
+      }
+    }
+  ]
+}

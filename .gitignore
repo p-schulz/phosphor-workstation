@@ -1,0 +1,11 @@
+# Build output
+/build/
+/out/
+# Local reference copies (pvm-player source lives in its own repo)
+/reference/
+# Editor / OS
+/.vscode/
+.DS_Store
+*.user
+# Local scratch renders
+/snaps/
