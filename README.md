@@ -20,18 +20,6 @@ Captured from the running app with the CRT pass on (`SHOT`).
 |---|---|
 | ![Page 1, the index page](docs/img/phosphor-page-1.png) | ![Page S, display setup](docs/img/phosphor-page-s.png) |
 
-## Design references
-
-The page workflow follows the classic page-based sampling workstations of the early 1980s. The screenshots
-below are **not PHOSPHOR**: they are third-party layout references for pages that are still to be built (see
-[docs/screens.md](docs/screens.md)).
-
-| Real-time composer (Page R) | Waveform display (Page D) |
-|---|---|
-| ![Reference: real-time composer](docs/img/page-r-composer-green.png) | ![Reference: 3D waveform display](docs/img/page-d-waveform-green.png) |
-| **Spectral drawing** | **Virtual keyboard** |
-| ![Reference: spectral drawing](docs/img/page-0-spectral-drawing.png) | ![Reference: virtual keyboard](docs/img/page-k-virtual-keyboard.png) |
-
 ## Build
 
 Requirements: CMake ≥ 3.24, Ninja, a C++20 compiler (Apple clang on macOS 13+, MSVC 2022 on Windows), network
