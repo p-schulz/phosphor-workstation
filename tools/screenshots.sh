@@ -79,6 +79,8 @@ add "PK";                        shot page-k "PK"
 load "SNES FIELD"
 add "INST 1"
 add "PC";                        shot page-c-snes "PC"
+add "INST 3"
+add "PD";                        shot page-d-sample "PD"
 # WAVEFORMS: the wavetable pages (instrument 15), the synth page (supersaw).
 load "WAVEFORMS"
 add "INST 15"

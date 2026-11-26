@@ -23,6 +23,7 @@ add_executable(phosphor_tests
     unit/test_vapor.cpp
     unit/test_viewport.cpp
     unit/test_wav.cpp
+    unit/test_wave_slices.cpp
     golden/test_golden.cpp
 )
 target_include_directories(phosphor_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

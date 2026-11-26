@@ -16,7 +16,7 @@ struct GoldenPage {
 };
 
 // Every page implemented so far, plus the index in two more themes to cover palette resolution.
-inline constexpr std::array<GoldenPage, 26> kGoldenPages = {{
+inline constexpr std::array<GoldenPage, 27> kGoldenPages = {{
     {"1", "GREEN", "page-1.png"},
     {"S", "GREEN", "page-s.png"},
     {"H", "GREEN", "page-h.png"},
@@ -33,6 +33,7 @@ inline constexpr std::array<GoldenPage, 26> kGoldenPages = {{
     {"4", "GREEN", "page-4.png", {}, "synth.phosphor", 0},
     {"6", "GREEN", "page-6.png", {}, "synth.phosphor", 0},
     {"D", "GREEN", "page-d.png", {}, "synth.phosphor", 0},
+    {"D", "GREEN", "page-d-sample.png", "pitched_tone.wav"},
     {"0", "GREEN", "page-0.png", {}, "synth.phosphor", 0},
     {"5", "GREEN", "page-5-synth.png", {}, "synth.phosphor", 1},
     {"5", "GREEN", "page-5-drum.png", {}, "synth.phosphor", 2},
