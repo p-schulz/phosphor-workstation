@@ -25,9 +25,19 @@ enum Ink : std::uint8_t {
     kInkRamp4 = 13,
     kInkRamp5 = 14,
     kInkRamp6 = 15,
+    // Role colours (16..23). The single-hue themes give them the colour of the ink they stand in
+    // for (noted in brackets), so those themes look exactly as before; COLOR gives each its own hue.
+    kInkTab = 16,     // title tabs and the header banner [bright]
+    kInkSelect = 17,  // selected option, focused field, pressed button [bright]
+    kInkCursor = 18,  // text cursor, playheads, focus outlines [bright]
+    kInkLevelLow = 19, // meters up to -18 dBFS [text]
+    kInkLevelMid = 20, // meters -18..-6 dBFS [text]
+    kInkLevelHigh = 21, // meters above -6 dBFS [text]
+    kInkPlay = 22,    // running: transport, playing loops [bright]
+    kInkLabel = 23,   // field labels and units [text]
 };
 
-inline constexpr int kPaletteSize = 16;
+inline constexpr int kPaletteSize = 24;
 
 struct Rgb {
     std::uint8_t r = 0, g = 0, b = 0;

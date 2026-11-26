@@ -73,7 +73,7 @@ Image canvas_to_rgb(const Canvas& canvas, const Theme& theme) {
     img.pixels.resize(static_cast<std::size_t>(img.width) * static_cast<std::size_t>(img.height) * 3);
     std::size_t o = 0;
     for (const std::uint8_t idx : canvas.pixels()) {
-        const Rgb c = theme.colors[idx & 0x0F];
+        const Rgb c = theme.colors[idx < kPaletteSize ? idx : 0];
         img.pixels[o++] = c.r;
         img.pixels[o++] = c.g;
         img.pixels[o++] = c.b;

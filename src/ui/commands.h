@@ -29,6 +29,9 @@ struct VerbInfo {
     std::string_view milestone; // empty = available in this build
 };
 std::span<const VerbInfo> verb_table();
+
+// "A4" -> 69, "C#3" -> 49, "Bb2" -> 46, "C-1" -> 0, "60" -> 60 (C4 = 60). nullopt if invalid.
+std::optional<int> parse_note(std::string_view text);
 const VerbInfo* find_verb(std::string_view verb);
 
 // Tab completion: completes the verb (or a THEME / DISPLAY / SCALE argument). Returns the

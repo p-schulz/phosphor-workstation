@@ -25,6 +25,8 @@ public:
     virtual bool has_fields() const { return false; }
 
     virtual void enter(Ui&) {}
+    // "P3 OUT": a page with several views shows the one named (upper case). False if unknown.
+    virtual bool show(std::string_view /*view*/) { return false; }
     virtual void update(const InputState&, Ui&) {}
     // Key event while this page has focus. Return true when consumed.
     virtual bool on_key(const InputEvent&, Ui&) { return false; }

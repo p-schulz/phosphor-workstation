@@ -44,6 +44,7 @@ App::App(CliOptions options)
 }
 
 App::~App() {
+    shutdown_audio();
     // The UI references this context; destroy it before the members it uses.
     ui_.reset();
 }
@@ -54,14 +55,24 @@ int run_windowed(const CliOptions& options) {
 }
 
 void App::load_settings() {
-    config_dir_ = options_.config_dir.empty() ? platform::default_config_dir() : options_.config_dir;
+    config_dir_ = options_.config_dir.empty() ? platform::default_config_dir()
+                                               : std::filesystem::path(options_.config_dir);
     profiles_path_ = config_dir_ / "display_profiles.json";
+    settings_path_ = config_dir_ / "settings.json";
     std::string error;
     if (auto loaded = ui::DisplayProfiles::load(profiles_path_, &error)) {
         profiles_ = std::move(*loaded);
     } else if (auto example = ui::DisplayProfiles::load(platform::exe_dir() / "conf" / "display_profiles.example.json",
                                                         &error)) {
         profiles_ = std::move(*example);
+    }
+
+    if (std::filesystem::exists(settings_path_)) {
+        if (auto loaded = ui::Settings::load(settings_path_, &error)) {
+            settings_ = std::move(*loaded);
+        } else {
+            std::fprintf(stderr, "settings.json ignored: %s\n", error.c_str());
+        }
     }
 
     keys_ = ui::KeyMap::defaults(kIsMac);
@@ -99,6 +110,9 @@ bool App::init() {
     choose_start_monitor();
     refresh_display();
     ui_ = std::make_unique<ui::Ui>(*this, *fonts_, keys_);
+    init_audio();
+    init_midi();
+    init_song();
     return true;
 }
 
@@ -256,12 +270,12 @@ std::optional<std::string> App::run_host_command(const ui::Command& command) {
             return "ERROR: CANNOT WRITE " + path.filename().string();
         }
         std::fprintf(stdout, "snap: %s\n", path.string().c_str());
-        return "SNAP: " + path.filename().string();
+        return std::string{}; // scripting commands leave the INFO line as it is (it is in the picture)
     }
     if (command.verb == "SHOT") {
         const auto path = snap_path(command.joined_args(), "shot");
         pending_shot_ = path.string();
-        return "SHOT: " + path.filename().string();
+        return std::string{};
     }
     if (command.verb == "WAIT") {
         try {
@@ -269,7 +283,22 @@ std::optional<std::string> App::run_host_command(const ui::Command& command) {
         } catch (...) {
             return "ERROR: WAIT <FRAMES>";
         }
-        return "WAIT " + std::to_string(wait_frames_);
+        return std::string{};
+    }
+    if (auto reply = audio_command(command)) {
+        return reply;
+    }
+    if (auto reply = midi_command(command)) {
+        return reply;
+    }
+    if (auto reply = song_command(command)) {
+        return reply;
+    }
+    if (auto reply = loop_command(command)) {
+        return reply;
+    }
+    if (auto reply = files_command(command)) {
+        return reply;
     }
     if (command.verb == "QUIT") {
         window_.request_close();
@@ -309,6 +338,12 @@ int App::run() {
 
         handle_monitor_changes();
         refresh_display();
+        update_audio();
+        update_midi();
+        update_samples();
+        update_song();
+        update_loops();
+        update_files();
         ui_->update(input);
         run_exec_queue();
         refresh_display(); // commands may have moved the window or changed the profile
@@ -333,6 +368,7 @@ int App::run() {
         window_.swap();
         ++frame_;
     }
+    shutdown_audio();
     return 0;
 }
 

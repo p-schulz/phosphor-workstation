@@ -1,0 +1,59 @@
+{
+  "app": "PHOSPHOR",
+  "instrument": {
+    "amp": {
+      "attackMs": 400.0,
+      "decayMs": 1000.0,
+      "releaseMs": 1200.0,
+      "sustain": 0.800000011920929
+    },
+    "cutoffHz": 1400.0,
+    "envAmount": 0.5,
+    "filter": "LOWPASS",
+    "filterEnv": {
+      "attackMs": 600.0,
+      "decayMs": 1500.0,
+      "releaseMs": 1200.0,
+      "sustain": 0.5
+    },
+    "fineCents": 0.0,
+    "interp": "HERMITE",
+    "keyTrack": 0.5,
+    "kind": "SYNTH",
+    "loop": "OFF",
+    "loopEnd": 0,
+    "loopStart": 0,
+    "name": "VAPOR PAD",
+    "pan": 0.0,
+    "resonance": 0.15000000596046448,
+    "rootNote": 60,
+    "sample": null,
+    "synth": {
+      "glideMs": 0.0,
+      "lfoRateHz": 0.20000000298023224,
+      "lfoShape": "SINE",
+      "lfoSync": 0,
+      "lfoToAmp": 0.0,
+      "lfoToCutoff": 0.30000001192092896,
+      "lfoToPitch": 0.0,
+      "lfoToPw": 0.0,
+      "mono": false,
+      "noiseLevel": 0.0,
+      "osc1": "SAW",
+      "osc1Level": 1.0,
+      "osc2": "SAW",
+      "osc2Detune": 10.0,
+      "osc2Level": 0.800000011920929,
+      "osc2Semitones": 0,
+      "pulseWidth": 0.5,
+      "subLevel": 0.0,
+      "unison": 3,
+      "unisonSpread": 14.0
+    },
+    "velToAmp": 1.0,
+    "velToCutoff": 0.0,
+    "volumeDb": -8.0
+  },
+  "schemaVersion": 5,
+  "type": "instrument"
+}

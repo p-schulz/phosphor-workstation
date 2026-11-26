@@ -21,6 +21,30 @@ Copyright (c) 2013-2025 Niels Lohmann. https://github.com/nlohmann/json/blob/v3.
 ## stb_image, stb_image_write — MIT or Public Domain (Unlicense), at the user's choice
 Copyright (c) 2017 Sean Barrett. https://github.com/nothings/stb
 
+## libremidi 5.4.3 — BSD 2-Clause
+Copyright (c) 2017-2023, Jean-Michaël Celerier & the libremidi contributors. Derived in part from RtMidi
+(MIT, Copyright (c) 2003-2017 Gary P. Scavone) and ModernMidi (BSD 2-Clause, Copyright (c) 2015 Dimitri
+Diakopoulos). https://github.com/celtera/libremidi/blob/v5.4.3/LICENSE.md
+
+## miniaudio 0.11.26 — Public Domain (Unlicense) or MIT No Attribution, at the user's choice
+Copyright 2025 David Reid. https://github.com/mackron/miniaudio/blob/0.11.26/LICENSE
+
+## stb_vorbis 1.22 — MIT or Public Domain (Unlicense), at the user's choice
+Copyright (c) 2017 Sean Barrett. Bundled with miniaudio (`extras/stb_vorbis.c`).
+
+## r8brain-free-src 6.5 — MIT
+Copyright (c) 2013-2023 Aleksey Vaneev. https://github.com/avaneev/r8brain-free-src/blob/version-6.5/LICENSE
+Includes Takuya Ooura's FFT package: "Copyright(C) 1996-2001 Takuya OOURA. You may use, copy, modify and
+distribute this code for any purpose (include commercial use) and without fee. Please refer to this package
+when you modify this code." http://www.kurims.kyoto-u.ac.jp/~ooura/fft.html
+
+## Signalsmith Stretch 1.4.0 — MIT
+Copyright (c) 2022 Geraint Luff / Signalsmith Audio Ltd.
+https://github.com/Signalsmith-Audio/signalsmith-stretch/blob/1.4.0/LICENSE.txt
+
+## Signalsmith Linear 0.6.4 — MIT
+Copyright (c) 2025 Signalsmith Audio. https://github.com/Signalsmith-Audio/linear/blob/0.6.4/LICENSE.txt
+
 ## Catch2 3.16.1 — Boost Software License 1.0 (tests only, not shipped)
 https://github.com/catchorg/Catch2/blob/v3.16.1/LICENSE.txt
 

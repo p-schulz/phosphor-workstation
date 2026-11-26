@@ -1,0 +1,1059 @@
+{
+  "app": "PHOSPHOR",
+  "currentInstrument": 3,
+  "instruments": [
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 250.0,
+        "releaseMs": 120.0,
+        "sustain": 0.6000000238418579
+      },
+      "cutoffHz": 1800.0,
+      "envAmount": 2.0,
+      "filter": "LOWPASS",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "BASS A3",
+      "pan": 0.0,
+      "resonance": 0.30000001192092896,
+      "rootNote": 57,
+      "sample": "samples/01_pcm16_A3.wav",
+      "sampleName": "pcm16_A3",
+      "sampleRate": 48000,
+      "source": "",
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 24000,
+      "loopStart": 0,
+      "name": "PITCHED_TONE",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 55,
+      "sample": "samples/04_pitched_tone.wav",
+      "sampleName": "pitched_tone",
+      "sampleRate": 48000,
+      "source": "/Users/schulz/phosphor-workstation/tests/fixtures/pitched_tone.wav",
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    }
+  ],
+  "schemaVersion": 3,
+  "song": {
+    "countInBars": 1,
+    "currentSection": 0,
+    "currentTrack": 3,
+    "masterDb": -6.0,
+    "metronome": "RECORD",
+    "order": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "patterns": [
+      {
+        "grid": "1/16",
+        "name": "GROOVE",
+        "notes": [
+          [
+            0,
+            0,
+            240,
+            45,
+            110
+          ],
+          [
+            0,
+            720,
+            240,
+            45,
+            90
+          ],
+          [
+            0,
+            1440,
+            480,
+            48,
+            100
+          ],
+          [
+            0,
+            2400,
+            240,
+            43,
+            100
+          ],
+          [
+            0,
+            3120,
+            480,
+            45,
+            120
+          ],
+          [
+            1,
+            0,
+            120,
+            84,
+            100
+          ],
+          [
+            1,
+            960,
+            120,
+            84,
+            70
+          ],
+          [
+            1,
+            1920,
+            120,
+            84,
+            100
+          ],
+          [
+            1,
+            2880,
+            120,
+            84,
+            70
+          ],
+          [
+            2,
+            480,
+            120,
+            96,
+            60
+          ],
+          [
+            2,
+            1440,
+            120,
+            96,
+            60
+          ],
+          [
+            2,
+            2400,
+            120,
+            96,
+            60
+          ],
+          [
+            2,
+            3360,
+            120,
+            96,
+            60
+          ],
+          [
+            3,
+            1,
+            773,
+            48,
+            97
+          ],
+          [
+            3,
+            48,
+            755,
+            45,
+            40
+          ],
+          [
+            3,
+            85,
+            727,
+            52,
+            38
+          ],
+          [
+            3,
+            3195,
+            255,
+            57,
+            37
+          ],
+          [
+            3,
+            3374,
+            255,
+            60,
+            103
+          ],
+          [
+            3,
+            3553,
+            293,
+            64,
+            93
+          ]
+        ],
+        "steps": 16
+      },
+      {
+        "grid": "1/8",
+        "name": "BREAK",
+        "notes": [
+          [
+            0,
+            0,
+            1920,
+            41,
+            100
+          ],
+          [
+            0,
+            1920,
+            1920,
+            43,
+            100
+          ]
+        ],
+        "steps": 8
+      }
+    ],
+    "playMode": "PATTERN",
+    "quantizeOnRecord": false,
+    "recordOffsetMs": 0,
+    "recordQuantize": "1/16",
+    "sections": [
+      {
+        "bpm10": 1180,
+        "pattern": 0,
+        "repeats": 2,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1180,
+        "pattern": 1,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      }
+    ],
+    "snesEcho": {
+      "delay": 4,
+      "feedback": 50,
+      "fir": [
+        127,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "noiseRate": 28,
+      "volL": 40,
+      "volR": 40
+    },
+    "strict": {
+      "cmi": false,
+      "gb": false,
+      "snes": false
+    },
+    "swing": 58,
+    "swingGrid": "1/16",
+    "tracks": [
+      {
+        "instrument": 0,
+        "mute": false,
+        "name": "BASS",
+        "pan": 0.0,
+        "solo": false,
+        "swing": true,
+        "volumeDb": -2.0
+      },
+      {
+        "instrument": 1,
+        "mute": false,
+        "name": "BEEP",
+        "pan": -0.30000001192092896,
+        "solo": false,
+        "swing": false,
+        "volumeDb": 0.0
+      },
+      {
+        "instrument": 2,
+        "mute": false,
+        "name": "TICK",
+        "pan": 0.4000000059604645,
+        "solo": false,
+        "swing": false,
+        "volumeDb": -9.0
+      },
+      {
+        "instrument": 3,
+        "mute": false,
+        "name": "TRACK 4",
+        "pan": 0.0,
+        "solo": false,
+        "swing": false,
+        "volumeDb": 0.0
+      },
+      {
+        "instrument": 4,
+        "mute": false,
+        "name": "TRACK 5",
+        "pan": 0.0,
+        "solo": false,
+        "swing": false,
+        "volumeDb": 0.0
+      },
+      {
+        "instrument": 5,
+        "mute": false,
+        "name": "TRACK 6",
+        "pan": 0.0,
+        "solo": false,
+        "swing": false,
+        "volumeDb": 0.0
+      },
+      {
+        "instrument": 6,
+        "mute": false,
+        "name": "TRACK 7",
+        "pan": 0.0,
+        "solo": false,
+        "swing": false,
+        "volumeDb": 0.0
+      },
+      {
+        "instrument": 7,
+        "mute": false,
+        "name": "TRACK 8",
+        "pan": 0.0,
+        "solo": false,
+        "swing": false,
+        "volumeDb": 0.0
+      },
+      {
+        "instrument": 8,
+        "mute": false,
+        "name": "TRACK A",
+        "pan": 0.0,
+        "solo": false,
+        "swing": false,
+        "volumeDb": 0.0
+      },
+      {
+        "instrument": 9,
+        "mute": false,
+        "name": "TRACK B",
+        "pan": 0.0,
+        "solo": false,
+        "swing": false,
+        "volumeDb": 0.0
+      },
+      {
+        "instrument": 10,
+        "mute": false,
+        "name": "TRACK C",
+        "pan": 0.0,
+        "solo": false,
+        "swing": false,
+        "volumeDb": 0.0
+      },
+      {
+        "instrument": 11,
+        "mute": false,
+        "name": "TRACK D",
+        "pan": 0.0,
+        "solo": false,
+        "swing": false,
+        "volumeDb": 0.0
+      },
+      {
+        "instrument": 12,
+        "mute": false,
+        "name": "TRACK E",
+        "pan": 0.0,
+        "solo": false,
+        "swing": false,
+        "volumeDb": 0.0
+      },
+      {
+        "instrument": 13,
+        "mute": false,
+        "name": "TRACK F",
+        "pan": 0.0,
+        "solo": false,
+        "swing": false,
+        "volumeDb": 0.0
+      },
+      {
+        "instrument": 14,
+        "mute": false,
+        "name": "TRACK G",
+        "pan": 0.0,
+        "solo": false,
+        "swing": false,
+        "volumeDb": 0.0
+      },
+      {
+        "instrument": 15,
+        "mute": false,
+        "name": "TRACK H",
+        "pan": 0.0,
+        "solo": false,
+        "swing": false,
+        "volumeDb": 0.0
+      }
+    ]
+  }
+}

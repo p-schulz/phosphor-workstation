@@ -173,9 +173,6 @@ bool Window::should_close() const { return glfwWindowShouldClose(window_) != 0; 
 void Window::request_close() { glfwSetWindowShouldClose(window_, GLFW_TRUE); }
 
 void Window::key_callback(GLFWwindow* w, int key, int /*scancode*/, int action, int mods) {
-    if (action == GLFW_RELEASE) {
-        return;
-    }
     ui::InputEvent ev;
     ev.type = ui::InputEvent::Type::Key;
     ev.key = translate_key(key, ev.ch);
@@ -184,6 +181,7 @@ void Window::key_callback(GLFWwindow* w, int key, int /*scancode*/, int action, 
     }
     ev.mods = translate_mods(mods);
     ev.repeat = action == GLFW_REPEAT;
+    ev.release = action == GLFW_RELEASE;
     from(w)->pending_.push_back(ev);
 }
 

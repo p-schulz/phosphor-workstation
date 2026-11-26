@@ -1,3 +1,4 @@
+#include <cctype>
 #include <cstdio>
 #include <filesystem>
 
@@ -23,9 +24,16 @@ int run_headless(const CliOptions& options) {
     ui::RenderRequest req;
     req.page = options.render_page;
     req.theme = options.theme;
+    req.sample = options.sample;
+    req.folder = options.folder;
+    req.view = options.view;
+    req.instrument = options.instrument - 1;
     if (!options.project.empty()) {
-        // Projects arrive in M4; until then only the bundle name is shown in the status line.
+        req.project_path = options.project;
         req.project_name = std::filesystem::path(options.project).stem().string();
+        for (auto& ch : req.project_name) {
+            ch = static_cast<char>(std::toupper(static_cast<unsigned char>(ch)));
+        }
     }
     const auto canvas = ui::render_page(req, *fonts, &error);
     if (!canvas) {

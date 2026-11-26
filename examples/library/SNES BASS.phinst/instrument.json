@@ -1,0 +1,63 @@
+{
+  "app": "PHOSPHOR",
+  "instrument": {
+    "amp": {
+      "attackMs": 2.0,
+      "decayMs": 300.0,
+      "releaseMs": 200.0,
+      "sustain": 1.0
+    },
+    "brr": {
+      "file": "brr/01.brr",
+      "loopBlock": 200,
+      "sourceRate": 32000
+    },
+    "cutoffHz": 8000.0,
+    "envAmount": 0.0,
+    "filter": "OFF",
+    "filterEnv": {
+      "attackMs": 2.0,
+      "decayMs": 300.0,
+      "releaseMs": 200.0,
+      "sustain": 0.0
+    },
+    "fineCents": 0.0,
+    "interp": "HERMITE",
+    "keyTrack": 0.0,
+    "kind": "SNES",
+    "loop": "FORWARD",
+    "loopEnd": 4800,
+    "loopStart": 3200,
+    "name": "SNES BASS",
+    "pan": 0.0,
+    "resonance": 0.0,
+    "rootNote": 69,
+    "sample": "samples/01_SNES_BASS.wav",
+    "sampleName": "SNES BASS",
+    "sampleRate": 32000,
+    "snes": {
+      "adsr": true,
+      "attack": 15,
+      "autoAlign": true,
+      "decay": 7,
+      "echo": true,
+      "gain": 127,
+      "gainMode": "DIRECT",
+      "noise": false,
+      "pitchMod": false,
+      "previewOriginal": false,
+      "rootNote": 69,
+      "sourceRate": 32000,
+      "sustainLevel": 7,
+      "sustainRate": 0,
+      "volL": 100,
+      "volR": 100
+    },
+    "source": "",
+    "velToAmp": 0.5,
+    "velToCutoff": 0.0,
+    "volumeDb": 0.0
+  },
+  "schemaVersion": 5,
+  "type": "instrument"
+}

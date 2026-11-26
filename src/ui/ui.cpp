@@ -1,8 +1,16 @@
 #include "ui/ui.h"
 
+#include <algorithm>
+#include <cstdio>
+
+#include "content/gm.h"
 #include "core/text.h"
 #include "ui/chrome.h"
+#include "ui/keyjazz.h"
+#include "ui/song_commands.h"
 #include "ui/layout.h"
+#include "io/instrument_io.h"
+#include "io/smf.h"
 #include "ui/page_catalog.h"
 #include "ui/pages/pages.h"
 
@@ -12,6 +20,20 @@ Ui::Ui(AppContext& app, const Fonts& fonts, KeyMap keys) : app_(app), fonts_(fon
     pages_.push_back(make_index_page());
     pages_.push_back(make_setup_page());
     pages_.push_back(make_help_page());
+    pages_.push_back(make_disk_page());
+    pages_.push_back(make_keyboard_page());
+    pages_.push_back(make_control_page());
+    pages_.push_back(make_sample_page());
+    pages_.push_back(make_composer_page());
+    pages_.push_back(make_mixer_page());
+    pages_.push_back(make_loops_page());
+    pages_.push_back(make_harmonics_page());
+    pages_.push_back(make_synth_page());
+    pages_.push_back(make_wavedraw_page());
+    pages_.push_back(make_waveform_page());
+    pages_.push_back(make_spectral_page());
+    pages_.push_back(make_chip_page());
+    pages_.push_back(make_vkeys_page());
     pages_.push_back(make_testcard_page());
     message("READY. TYPE HELP OR CLICK A PAGE");
 }
@@ -44,6 +66,11 @@ Page* Ui::page() { return find_page(current_); }
 
 const Page* Ui::current_page() const { return find_page(current_); }
 
+bool Ui::show_view(std::string_view view) {
+    Page* p = page();
+    return p && p->show(to_upper(view));
+}
+
 std::string_view Ui::current_page_id() const { return current_; }
 
 bool Ui::go_to_page(std::string_view id) {
@@ -73,6 +100,9 @@ bool Ui::go_to_page(std::string_view id) {
 void Ui::go_back() { go_to_page(previous_.empty() ? std::string_view("1") : std::string_view(previous_)); }
 
 void Ui::message(std::string text, bool error) {
+    if (text != message_ || error != message_error_) {
+        message_time_ = app_.time_s(); // a repeated message keeps rolling where it is
+    }
     message_ = std::move(text);
     message_error_ = error;
 }
@@ -153,7 +183,93 @@ void Ui::handle_chrome_zone(int id) {
     }
 }
 
+void Ui::set_keyjazz(bool on) {
+    if (keyjazz_ == on) {
+        return;
+    }
+    keyjazz_ = on;
+    if (!on) {
+        release_keyjazz_notes();
+    } else {
+        command_.clear();
+        focus_ = Focus::Command;
+    }
+}
+
+void Ui::keyjazz_octave(int delta) {
+    MidiConfig cfg = app_.midi_config();
+    cfg.keyjazz_octave = std::clamp(cfg.keyjazz_octave + delta, 0, 8);
+    app_.set_midi_config(cfg);
+    message("KEYJAZZ OCTAVE " + std::to_string(cfg.keyjazz_octave));
+}
+
+void Ui::release_keyjazz_notes() {
+    for (auto& held : keyjazz_down_) {
+        if (held > 0) {
+            app_.keyjazz_note(held - 1, false);
+            held = 0;
+        }
+    }
+}
+
+bool Ui::handle_keyjazz(const InputEvent& ev) {
+    if (ev.type == InputEvent::Type::Text) {
+        return true; // no typing while KEYJAZZ is on
+    }
+    if (ev.key == Key::Escape && !ev.release && ev.mods == 0) { // MOD+ESC stays PANIC
+        set_keyjazz(false);
+        message("KEYJAZZ OFF");
+        suppress_text_ = true;
+        return true;
+    }
+    if (ev.key != Key::Char || (ev.mods & ~kModShift) != 0) {
+        return false; // F-keys, arrows, MOD chords keep working
+    }
+    const auto idx = static_cast<std::size_t>(static_cast<unsigned char>(ev.ch) & 0x7F);
+    if (ev.release) {
+        if (keyjazz_down_[idx] > 0) {
+            app_.keyjazz_note(keyjazz_down_[idx] - 1, false);
+            keyjazz_down_[idx] = 0;
+        }
+        return true;
+    }
+    if (ev.repeat) {
+        return true;
+    }
+    if (ev.ch == keyjazz::kOctaveDown || ev.ch == keyjazz::kOctaveUp) {
+        keyjazz_octave(ev.ch == keyjazz::kOctaveUp ? 1 : -1);
+        return true;
+    }
+    const int n = keyjazz::note(ev.ch, app_.midi_config().keyjazz_octave);
+    if (n >= 0 && keyjazz_down_[idx] == 0) {
+        keyjazz_down_[idx] = n + 1; // remember: the octave may change before the key goes up
+        app_.keyjazz_note(n, true);
+    }
+    return true;
+}
+
 void Ui::handle_event(const InputEvent& ev) {
+    // Page key: <modifier> + page id jumps there (P = back). It wins over key-map chords with the
+    // same keys (Page S lists the ones it hides), so the chosen modifier always works.
+    if (ev.type == InputEvent::Type::Key && ev.key == Key::Char && !ev.release && !ev.repeat &&
+        app_.page_modifier() != 0 && (ev.mods & ~kModShift) == app_.page_modifier()) {
+        const std::string id(1, ev.ch);
+        if (ev.ch == 'P' || find_page_info(id)) {
+            if (ev.ch == 'P') {
+                go_back();
+            } else {
+                execute("P" + id);
+            }
+            suppress_text_ = true; // Option+letter on macOS also sends a character
+            return;
+        }
+    }
+    if (keyjazz_ && handle_keyjazz(ev)) {
+        return;
+    }
+    if (ev.type == InputEvent::Type::Key && ev.release) {
+        return; // only KEYJAZZ uses key releases
+    }
     Page* p = page();
     if (ev.type == InputEvent::Type::Text && suppress_text_) {
         suppress_text_ = false;
@@ -191,6 +307,8 @@ void Ui::handle_event(const InputEvent& ev) {
             return;
         }
         if (p->on_key(ev, *this)) {
+            // A page that used a letter key: drop the character the OS sends after it.
+            suppress_text_ = ev.type == InputEvent::Type::Key && (ev.key == Key::Char || ev.key == Key::Space);
             return;
         }
         if (ev.type == InputEvent::Type::Text) {
@@ -273,7 +391,9 @@ bool Ui::execute(std::string_view text) {
     }
     if (auto reply = app_.run_host_command(*cmd)) {
         const bool error = reply->rfind("ERROR", 0) == 0;
-        message(*reply, error);
+        if (!reply->empty()) { // an empty reply (WAIT, SNAP, SHOT) keeps the current message
+            message(*reply, error);
+        }
         return !error;
     }
     message("UNKNOWN COMMAND: " + cmd->verb, true);
@@ -284,9 +404,33 @@ std::optional<std::string> Ui::run_ui_command(const Command& cmd) {
     const std::string page_id = page_id_from_verb(cmd.verb);
     if (!page_id.empty()) {
         if (go_to_page(page_id)) {
+            message(std::string(page()->title())); // replaces an older (error) message
+            if (!cmd.args.empty() && !page()->show(to_upper(cmd.joined_args()))) {
+                message("PAGE " + page_id + " HAS NO VIEW " + to_upper(cmd.joined_args()), true);
+            }
             return std::string{};
         }
         return std::string{}; // go_to_page already set an error message
+    }
+    if (cmd.verb == "FOLLOW") {
+        if (!cmd.args.empty() && !cmd.arg_is(0, "ON") && !cmd.arg_is(0, "OFF")) {
+            message("FOLLOW [ON|OFF]", true);
+            return std::string{};
+        }
+        const bool on = cmd.args.empty() ? !app_.follow() : cmd.arg_is(0, "ON");
+        app_.set_follow(on);
+        return std::string(on ? "FOLLOW ON: PAGE R SCROLLS WITH THE PLAYHEAD" : "FOLLOW OFF: PAGE R STAYS WHERE YOU EDIT");
+    }
+    if (cmd.verb == "PAGEKEY") {
+        const auto mods = cmd.args.empty() ? std::nullopt : page_modifier_from(cmd.args[0]);
+        if (!mods) {
+            message("PAGEKEY OFF|CTRL|ALT|CMD", true);
+            return std::string{};
+        }
+        app_.set_page_modifier(*mods);
+        return *mods == 0 ? std::string("PAGE KEY OFF")
+                          : std::string("PAGE KEY ") + page_modifier_name(*mods) + ": " + page_modifier_name(*mods) +
+                                "+K = PAGE K, +P = BACK";
     }
     if (cmd.verb == "HELP") {
         go_to_page("H");
@@ -295,6 +439,156 @@ std::optional<std::string> Ui::run_ui_command(const Command& cmd) {
     if (cmd.verb == "BACK") {
         go_back();
         return std::string{};
+    }
+    if (cmd.verb == "KEYJAZZ") {
+        if (cmd.arg_is(0, "OCTAVE") && cmd.args.size() > 1) {
+            MidiConfig cfg = app_.midi_config();
+            try {
+                cfg.keyjazz_octave = std::clamp(std::stoi(cmd.args[1]), 0, 8);
+            } catch (...) {
+                message("KEYJAZZ OCTAVE 0-8", true);
+                return std::string{};
+            }
+            app_.set_midi_config(cfg);
+            return "KEYJAZZ OCTAVE " + std::to_string(cfg.keyjazz_octave);
+        }
+        const bool on = cmd.arg_is(0, "ON") || (!cmd.arg_is(0, "OFF") && !keyjazz_);
+        set_keyjazz(on);
+        return std::string(on ? "KEYJAZZ ON: KEYS PLAY NOTES, ESC = OFF" : "KEYJAZZ OFF");
+    }
+    if (cmd.verb == "PANIC") {
+        release_keyjazz_notes(); // then the host silences the engine (and MIDI out, M8)
+    }
+    if (auto reply = run_song_command(*this, cmd, taps_)) {
+        return reply;
+    }
+    if (auto reply = run_mix_command(*this, cmd)) {
+        return reply;
+    }
+    if (cmd.verb == "UNDO" || cmd.verb == "REDO") {
+        const auto label = cmd.verb == "UNDO" ? app_.workspace().undo() : app_.workspace().redo();
+        if (!label) {
+            message(cmd.verb + ": NOTHING TO " + cmd.verb, true);
+            return std::string{};
+        }
+        return cmd.verb + ": " + *label;
+    }
+    if (cmd.verb == "INST") {
+        try {
+            const int n = cmd.args.empty() ? -1 : std::stoi(cmd.args[0]);
+            if (n < 1 || n > model::kInstruments) {
+                throw std::out_of_range("inst");
+            }
+            app_.workspace().select(n - 1);
+            const auto& inst = app_.workspace().doc().current_instrument();
+            return "INSTRUMENT " + std::to_string(n) + ": " + inst.name;
+        } catch (...) {
+            message("INST 1-16", true);
+            return std::string{};
+        }
+    }
+    if (cmd.verb == "IMPORT") {
+        if (cmd.args.empty()) {
+            message("IMPORT <PATH>", true);
+            return std::string{};
+        }
+        // An instrument bundle (a path, or a name in the library) replaces the current instrument.
+        const std::filesystem::path lib = app_.projects_folder() / "Instruments";
+        const std::filesystem::path ipath = io::instrument_path(lib, cmd.joined_args());
+        if (io::is_instrument_bundle(ipath)) {
+            std::string error;
+            const std::uint32_t rate = app_.audio().status.sample_rate ? app_.audio().status.sample_rate : 48000;
+            auto inst = io::load_instrument(ipath, rate, &error);
+            if (!inst) {
+                message("IMPORT FAILED: " + to_upper(error), true);
+                return std::string{};
+            }
+            const int slot = app_.workspace().doc().current;
+            const std::string name = inst->name;
+            app_.workspace().set_instrument(slot, std::move(*inst), "IMPORT INSTRUMENT");
+            return "INSTRUMENT " + std::to_string(slot + 1) + " = " + name + " (" +
+                   model::kind_name(app_.workspace().doc().current_instrument().kind) + ", UNDO: MOD+Z)";
+        }
+        if (ipath.extension() == io::kInstrumentExt && std::filesystem::path(cmd.joined_args()).extension() == io::kInstrumentExt) {
+            message("NO INSTRUMENT " + to_upper(cmd.joined_args()) + " (LIBRARY LISTS THEM)", true);
+            return std::string{};
+        }
+        if (io::is_midi_file(cmd.joined_args())) {
+            // A Standard MIDI file replaces the song; its tracks get instruments in empty slots
+            // (library first, then GM presets). One undoable step.
+            std::string error;
+            const auto imp = io::read_smf(cmd.joined_args(), app_.workspace().doc().song, &error);
+            if (!imp) {
+                message("IMPORT FAILED: " + to_upper(error), true);
+                return std::string{};
+            }
+            model::Document doc = app_.workspace().doc();
+            const std::uint32_t rate = app_.audio().status.sample_rate ? app_.audio().status.sample_rate : 48000;
+            const auto a = content::assemble_midi(doc, *imp, lib, rate);
+            app_.workspace().set_document(std::move(doc), "IMPORT MIDI");
+            for (const auto& l : a.lines) {
+                std::fprintf(stdout, "midi import: %s\n", l.c_str());
+            }
+            return "MIDI: " + std::to_string(imp->notes) + " NOTES, " + std::to_string(imp->tracks) + " TRACKS, " +
+                   std::to_string(imp->sections) + " SECTIONS; INSTRUMENTS " + std::to_string(a.from_library) + " LIBRARY " +
+                   std::to_string(a.built_in) + " PRESET " + std::to_string(a.kept) + " KEPT (UNDO: MOD+Z)" +
+                   (imp->warning.empty() ? "" : ". " + imp->warning);
+        }
+        app_.import_sample(cmd.joined_args(), app_.workspace().doc().current);
+        return app_.import_status().empty() ? std::string("IMPORTED") : app_.import_status();
+    }
+    if (cmd.verb == "LIBRARY") {
+        // The instrument library on Page 2 (created on first use).
+        const auto lib = app_.projects_folder() / "Instruments";
+        std::error_code ec;
+        std::filesystem::create_directories(lib, ec);
+        app_.set_browse_folder(lib);
+        go_to_page("2");
+        return "LIBRARY: " + std::to_string(io::list_instruments(lib).size()) + " INSTRUMENTS. ENTER LOADS ONE";
+    }
+    if (cmd.verb == "EXPORT" && (cmd.arg_is(0, "INST") || cmd.arg_is(0, "INSTRUMENT"))) {
+        // EXPORT INST [name | path.phinst]: the current instrument into the library.
+        const model::Instrument& inst = app_.workspace().doc().current_instrument();
+        std::string name;
+        for (std::size_t i = 1; i < cmd.args.size(); ++i) {
+            name += (i > 1 ? " " : "") + cmd.args[i];
+        }
+        if (name.empty()) {
+            name = inst.name;
+        }
+        const auto path = io::instrument_path(app_.projects_folder() / "Instruments", name);
+        model::Instrument named = inst;
+        if (cmd.args.size() > 1 && path.extension() == io::kInstrumentExt && !std::filesystem::path(name).has_parent_path()) {
+            named.name = to_upper(path.stem().string());
+        }
+        std::string error;
+        if (!io::save_instrument(path, named, &error)) {
+            message("EXPORT FAILED: " + to_upper(error), true);
+            return std::string{};
+        }
+        return "EXPORTED " + to_upper(path.filename().string()) + " (LIBRARY: IMPORT " + to_upper(path.stem().string()) + ")";
+    }
+    if (cmd.verb == "EXPORT") {
+        // EXPORT MIDI [path.mid]: the song as a type 1 Standard MIDI file.
+        if (!cmd.arg_is(0, "MIDI")) {
+            message("EXPORT MIDI [PATH.MID] | EXPORT INST [NAME]", true);
+            return std::string{};
+        }
+        std::string path;
+        for (std::size_t i = 1; i < cmd.args.size(); ++i) {
+            path += (i > 1 ? " " : "") + cmd.args[i];
+        }
+        const std::string name = app_.project().name.empty() ? std::string("UNTITLED") : app_.project().name;
+        std::filesystem::path out = path.empty() ? app_.projects_folder() / "Exports" / (name + ".mid") : std::filesystem::path(path);
+        if (out.extension().empty()) {
+            out += ".mid";
+        }
+        std::string error;
+        if (!io::write_smf(out, app_.workspace().doc(), name, &error)) {
+            message("EXPORT FAILED: " + to_upper(error), true);
+            return std::string{};
+        }
+        return "EXPORTED " + to_upper(out.filename().string()) + " (960 PPQ, TEMPO + SIGNATURE)";
     }
     if (cmd.verb == "TESTCARD") {
         go_to_page("TESTCARD");

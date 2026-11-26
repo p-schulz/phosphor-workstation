@@ -1,0 +1,39 @@
+{
+  "app": "PHOSPHOR",
+  "currentInstrument": 0,
+  "instruments": [
+    {"name": "BASS A3", "sample": "samples/01_pcm16_A3.wav", "sampleName": "pcm16_A3", "rootNote": 57,
+     "loop": "OFF", "filter": "LOWPASS", "cutoffHz": 1800.0, "resonance": 0.3, "envAmount": 2.0,
+     "amp": {"attackMs": 2.0, "decayMs": 250.0, "sustain": 0.6, "releaseMs": 120.0}}
+  ],
+  "schemaVersion": 1,
+  "song": {
+    "countInBars": 1,
+    "currentSection": 0,
+    "currentTrack": 0,
+    "masterDb": -6.0,
+    "metronome": "RECORD",
+    "order": [0, 0, 1, 0],
+    "patterns": [
+      {"grid": "1/16", "name": "GROOVE", "steps": 16, "notes": [
+        [0, 0, 240, 45, 110], [0, 720, 240, 45, 90], [0, 1440, 480, 48, 100], [0, 2400, 240, 43, 100], [0, 3120, 480, 45, 120],
+        [1, 0, 120, 84, 100], [1, 960, 120, 84, 70], [1, 1920, 120, 84, 100], [1, 2880, 120, 84, 70],
+        [2, 480, 120, 96, 60], [2, 1440, 120, 96, 60], [2, 2400, 120, 96, 60], [2, 3360, 120, 96, 60]
+      ]},
+      {"grid": "1/8", "name": "BREAK", "steps": 8, "notes": [
+        [0, 0, 1920, 41, 100], [0, 1920, 1920, 43, 100]
+      ]}
+    ],
+    "playMode": "PATTERN",
+    "sections": [
+      {"bpm10": 1180, "pattern": 0, "repeats": 2, "sigDen": 4, "sigNum": 4},
+      {"bpm10": 1180, "pattern": 1, "repeats": 1, "sigDen": 4, "sigNum": 4}
+    ],
+    "swing": 58,
+    "tracks": [
+      {"instrument": 0, "name": "BASS", "volumeDb": -2.0, "swing": true},
+      {"instrument": 1, "name": "BEEP", "pan": -0.3},
+      {"instrument": 2, "name": "TICK", "pan": 0.4, "volumeDb": -9.0, "mute": false}
+    ]
+  }
+}

@@ -63,12 +63,12 @@ public:
         c.vline(cx, cy - r, cy + r, gfx::kInkDim);
 
         // Palette bars across the middle.
-        constexpr int kBarW = 16;
-        const int bars_x = cx - 8 * kBarW;
+        constexpr int kBarW = 12;
+        const int bars_x = cx - gfx::kPaletteSize / 2 * kBarW;
         for (int i = 0; i < gfx::kPaletteSize; ++i) {
             c.fill_rect(gfx::Rect{bars_x + i * kBarW, cy + 20, kBarW, 20}, static_cast<std::uint8_t>(i));
         }
-        c.rect(gfx::Rect{bars_x - 1, cy + 19, 16 * kBarW + 2, 22}, gfx::kInkText);
+        c.rect(gfx::Rect{bars_x - 1, cy + 19, gfx::kPaletteSize * kBarW + 2, 22}, gfx::kInkText);
 
         // One-pixel resolution wedges: alternating lines get closer together.
         for (int i = 0; i < 6; ++i) {

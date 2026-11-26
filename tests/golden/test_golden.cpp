@@ -18,6 +18,14 @@ TEST_CASE("page renders match the golden images", "[golden]") {
         ui::RenderRequest req;
         req.page = std::string(g.page);
         req.theme = std::string(g.theme);
+        if (!g.sample.empty()) {
+            req.sample = std::string(PHOS_FIXTURE_DIR) + "/" + std::string(g.sample);
+        }
+        if (!g.project.empty()) {
+            req.project_path = std::string(PHOS_FIXTURE_DIR) + "/" + std::string(g.project);
+        }
+        req.instrument = g.instrument;
+        req.view = std::string(g.view);
         const auto canvas = ui::render_page(req, *fonts, &error);
         REQUIRE(canvas);
         const gfx::Image actual = gfx::canvas_to_rgb(*canvas, *gfx::find_theme(req.theme));

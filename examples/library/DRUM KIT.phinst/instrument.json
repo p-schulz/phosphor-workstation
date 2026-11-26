@@ -1,0 +1,199 @@
+{
+  "app": "PHOSPHOR",
+  "instrument": {
+    "amp": {
+      "attackMs": 2.0,
+      "decayMs": 300.0,
+      "releaseMs": 200.0,
+      "sustain": 1.0
+    },
+    "cutoffHz": 8000.0,
+    "drum": [
+      {
+        "choke": 0,
+        "decayMs": 350.0,
+        "levelDb": 0.0,
+        "pan": 0.0,
+        "sampleSlot": -1,
+        "tone": 0.5,
+        "tune": 0.0,
+        "type": "KICK"
+      },
+      {
+        "choke": 0,
+        "decayMs": 60.0,
+        "levelDb": -6.0,
+        "pan": 0.20000000298023224,
+        "sampleSlot": -1,
+        "tone": 0.699999988079071,
+        "tune": 12.0,
+        "type": "CHIP"
+      },
+      {
+        "choke": 0,
+        "decayMs": 180.0,
+        "levelDb": -2.0,
+        "pan": 0.0,
+        "sampleSlot": -1,
+        "tone": 0.6000000238418579,
+        "tune": 0.0,
+        "type": "SNARE"
+      },
+      {
+        "choke": 0,
+        "decayMs": 220.0,
+        "levelDb": -3.0,
+        "pan": -0.10000000149011612,
+        "sampleSlot": -1,
+        "tone": 0.5,
+        "tune": 0.0,
+        "type": "CLAP"
+      },
+      {
+        "choke": 0,
+        "decayMs": 120.0,
+        "levelDb": -4.0,
+        "pan": 0.10000000149011612,
+        "sampleSlot": -1,
+        "tone": 0.800000011920929,
+        "tune": 3.0,
+        "type": "SNARE"
+      },
+      {
+        "choke": 0,
+        "decayMs": 300.0,
+        "levelDb": -3.0,
+        "pan": -0.4000000059604645,
+        "sampleSlot": -1,
+        "tone": 0.30000001192092896,
+        "tune": -5.0,
+        "type": "TOM"
+      },
+      {
+        "choke": 1,
+        "decayMs": 50.0,
+        "levelDb": -8.0,
+        "pan": 0.30000001192092896,
+        "sampleSlot": -1,
+        "tone": 0.6000000238418579,
+        "tune": 0.0,
+        "type": "HAT"
+      },
+      {
+        "choke": 0,
+        "decayMs": 260.0,
+        "levelDb": -3.0,
+        "pan": 0.0,
+        "sampleSlot": -1,
+        "tone": 0.30000001192092896,
+        "tune": 0.0,
+        "type": "TOM"
+      },
+      {
+        "choke": 1,
+        "decayMs": 90.0,
+        "levelDb": -9.0,
+        "pan": 0.30000001192092896,
+        "sampleSlot": -1,
+        "tone": 0.5,
+        "tune": 0.0,
+        "type": "HAT"
+      },
+      {
+        "choke": 0,
+        "decayMs": 220.0,
+        "levelDb": -3.0,
+        "pan": 0.4000000059604645,
+        "sampleSlot": -1,
+        "tone": 0.30000001192092896,
+        "tune": 5.0,
+        "type": "TOM"
+      },
+      {
+        "choke": 1,
+        "decayMs": 400.0,
+        "levelDb": -8.0,
+        "pan": 0.30000001192092896,
+        "sampleSlot": -1,
+        "tone": 0.6000000238418579,
+        "tune": 0.0,
+        "type": "HAT"
+      },
+      {
+        "choke": 0,
+        "decayMs": 120.0,
+        "levelDb": -6.0,
+        "pan": -0.20000000298023224,
+        "sampleSlot": -1,
+        "tone": 0.30000001192092896,
+        "tune": 0.0,
+        "type": "CHIP"
+      },
+      {
+        "choke": 0,
+        "decayMs": 40.0,
+        "levelDb": -8.0,
+        "pan": 0.0,
+        "sampleSlot": -1,
+        "tone": 0.8999999761581421,
+        "tune": 24.0,
+        "type": "CHIP"
+      },
+      {
+        "choke": 0,
+        "decayMs": 900.0,
+        "levelDb": -10.0,
+        "pan": -0.30000001192092896,
+        "sampleSlot": -1,
+        "tone": 0.4000000059604645,
+        "tune": -5.0,
+        "type": "HAT"
+      },
+      {
+        "choke": 0,
+        "decayMs": 200.0,
+        "levelDb": 0.0,
+        "pan": 0.0,
+        "sampleSlot": -1,
+        "tone": 0.5,
+        "tune": 0.0,
+        "type": "OFF"
+      },
+      {
+        "choke": 0,
+        "decayMs": 200.0,
+        "levelDb": 0.0,
+        "pan": 0.0,
+        "sampleSlot": -1,
+        "tone": 0.5,
+        "tune": 0.0,
+        "type": "OFF"
+      }
+    ],
+    "envAmount": 0.0,
+    "filter": "OFF",
+    "filterEnv": {
+      "attackMs": 2.0,
+      "decayMs": 300.0,
+      "releaseMs": 200.0,
+      "sustain": 0.0
+    },
+    "fineCents": 0.0,
+    "interp": "HERMITE",
+    "keyTrack": 0.0,
+    "kind": "DRUM",
+    "loop": "OFF",
+    "loopEnd": 0,
+    "loopStart": 0,
+    "name": "DRUM KIT",
+    "pan": 0.0,
+    "resonance": 0.0,
+    "rootNote": 60,
+    "sample": null,
+    "velToAmp": 0.699999988079071,
+    "velToCutoff": 0.0,
+    "volumeDb": 0.0
+  },
+  "schemaVersion": 5,
+  "type": "instrument"
+}

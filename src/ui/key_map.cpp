@@ -23,6 +23,7 @@ constexpr std::array<std::pair<std::string_view, Key>, 29> kNamedKeys = {{
 constexpr std::string_view kDefaultKeys = R"(# PHOSPHOR key bindings. Copy to keys.cfg in the settings folder to customise.
 # Syntax: <chord> = <command>. Modifiers: SHIFT, CTRL, ALT, CMD, MOD (Cmd on macOS, Ctrl elsewhere).
 # Works with remotes that emulate a keyboard (e.g. Flirc): bind whatever keys they send.
+# Page jumps (modifier + page id, P = back) are set on Page S (PAGE KEY) or with PAGEKEY.
 F1 = P1
 F2 = P2
 F3 = P3
@@ -40,6 +41,8 @@ MOD+S = SAVE
 MOD+Z = UNDO
 MOD+SHIFT+Z = REDO
 MOD+SHIFT+D = DISPLAY NEXT
+MOD+K = KEYJAZZ
+MOD+ESC = PANIC
 ALT+ENTER = DISPLAY TOGGLE
 MOD+Q = QUIT
 )";

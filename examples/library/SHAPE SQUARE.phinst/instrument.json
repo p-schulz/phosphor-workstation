@@ -1,0 +1,59 @@
+{
+  "app": "PHOSPHOR",
+  "instrument": {
+    "amp": {
+      "attackMs": 5.0,
+      "decayMs": 200.0,
+      "releaseMs": 250.0,
+      "sustain": 0.8500000238418579
+    },
+    "cutoffHz": 1200.0,
+    "envAmount": 2.5,
+    "filter": "OFF",
+    "filterEnv": {
+      "attackMs": 5.0,
+      "decayMs": 600.0,
+      "releaseMs": 300.0,
+      "sustain": 0.20000000298023224
+    },
+    "fineCents": 0.0,
+    "interp": "HERMITE",
+    "keyTrack": 0.5,
+    "kind": "SYNTH",
+    "loop": "OFF",
+    "loopEnd": 0,
+    "loopStart": 0,
+    "name": "SHAPE SQUARE",
+    "pan": 0.0,
+    "resonance": 0.30000001192092896,
+    "rootNote": 60,
+    "sample": null,
+    "synth": {
+      "glideMs": 0.0,
+      "lfoRateHz": 5.0,
+      "lfoShape": "SINE",
+      "lfoSync": 0,
+      "lfoToAmp": 0.0,
+      "lfoToCutoff": 0.0,
+      "lfoToPitch": 0.0,
+      "lfoToPw": 0.0,
+      "mono": false,
+      "noiseLevel": 0.0,
+      "osc1": "PULSE",
+      "osc1Level": 1.0,
+      "osc2": "OFF",
+      "osc2Detune": 7.0,
+      "osc2Level": 0.6000000238418579,
+      "osc2Semitones": 0,
+      "pulseWidth": 0.5,
+      "subLevel": 0.0,
+      "unison": 1,
+      "unisonSpread": 18.0
+    },
+    "velToAmp": 1.0,
+    "velToCutoff": 0.0,
+    "volumeDb": -7.199999809265137
+  },
+  "schemaVersion": 5,
+  "type": "instrument"
+}

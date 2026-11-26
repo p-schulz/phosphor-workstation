@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <memory>
 #include <string>
 #include <string_view>
@@ -48,6 +49,8 @@ public:
     void message(std::string text, bool error = false);
     const std::string& message_text() const { return message_; }
     bool message_is_error() const { return message_error_; }
+    // AppContext::time_s() when the message was set (the INFO line rolls long ones from there).
+    double message_time() const { return message_time_; }
 
     AppContext& app() { return app_; }
     const AppContext& app() const { return app_; }
@@ -58,9 +61,16 @@ public:
     Focus focus() const { return focus_; }
     void set_focus(Focus focus);
 
+    // KEYJAZZ: while on, note keys play notes and the command line takes no typing (ESC = off).
+    bool keyjazz() const { return keyjazz_; }
+    void set_keyjazz(bool on);
+    void keyjazz_octave(int delta);
+
     std::string_view current_page_id() const;
     std::string_view previous_page_id() const { return previous_; }
     const Page* current_page() const;
+    // Shows a view of the current page ("OUT" on Page 3). False if the page has no such view.
+    bool show_view(std::string_view view);
 
     // Light-pen zones, registered while drawing. Hit-tested against the next frame's pen.
     void add_zone(gfx::Rect rect, ZoneOwner owner, int id) const;
@@ -81,6 +91,8 @@ private:
     void handle_chrome_zone(int id);
     void handle_pen(const InputState& input);
     std::optional<std::string> run_ui_command(const Command& cmd);
+    bool handle_keyjazz(const InputEvent& event);
+    void release_keyjazz_notes();
 
     AppContext& app_;
     Fonts fonts_;
@@ -92,7 +104,11 @@ private:
     Focus focus_ = Focus::Command;
     std::string message_;
     bool message_error_ = false;
+    double message_time_ = 0.0;
     bool suppress_text_ = false;
+    bool keyjazz_ = false;
+    std::array<int, 128> keyjazz_down_{}; // per key label: sounding note + 1 (0 = up)
+    std::vector<double> taps_;            // TAP tempo history
 
     mutable std::vector<Zone> zones_;
     std::vector<Zone> hit_zones_; // zones from the last completed draw

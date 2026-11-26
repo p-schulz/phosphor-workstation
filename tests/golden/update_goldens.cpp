@@ -26,6 +26,14 @@ int main(int argc, char** argv) {
         phos::ui::RenderRequest req;
         req.page = std::string(g.page);
         req.theme = std::string(g.theme);
+        if (!g.sample.empty()) {
+            req.sample = std::string(PHOS_FIXTURE_DIR) + "/" + std::string(g.sample);
+        }
+        if (!g.project.empty()) {
+            req.project_path = std::string(PHOS_FIXTURE_DIR) + "/" + std::string(g.project);
+        }
+        req.instrument = g.instrument;
+        req.view = std::string(g.view);
         const auto canvas = phos::ui::render_page(req, *fonts, &error);
         if (!canvas) {
             std::fprintf(stderr, "%s: %s\n", std::string(g.file).c_str(), error.c_str());

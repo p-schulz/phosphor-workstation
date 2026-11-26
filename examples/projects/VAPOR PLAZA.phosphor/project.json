@@ -1,0 +1,2337 @@
+{
+  "app": "PHOSPHOR",
+  "currentInstrument": 0,
+  "instruments": [
+    {
+      "amp": {
+        "attackMs": 4.0,
+        "decayMs": 1200.0,
+        "releaseMs": 700.0,
+        "sustain": 0.3499999940395355
+      },
+      "cutoffHz": 2800.0,
+      "envAmount": 1.2000000476837158,
+      "filter": "LOWPASS",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 500.0,
+        "releaseMs": 500.0,
+        "sustain": 0.20000000298023224
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.4000000059604645,
+      "kind": "SYNTH",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "E.PIANO",
+      "pan": 0.0,
+      "resonance": 0.10000000149011612,
+      "rootNote": 60,
+      "sample": null,
+      "synth": {
+        "glideMs": 0.0,
+        "lfoRateHz": 5.0,
+        "lfoShape": "SINE",
+        "lfoSync": 0,
+        "lfoToAmp": 0.0,
+        "lfoToCutoff": 0.0,
+        "lfoToPitch": 0.0,
+        "lfoToPw": 0.0,
+        "mono": false,
+        "noiseLevel": 0.0,
+        "osc1": "TRIANGLE",
+        "osc1Level": 1.0,
+        "osc2": "SINE",
+        "osc2Detune": 7.0,
+        "osc2Level": 0.25,
+        "osc2Semitones": 12,
+        "pulseWidth": 0.5,
+        "subLevel": 0.0,
+        "unison": 1,
+        "unisonSpread": 12.0
+      },
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": -4.0
+    },
+    {
+      "amp": {
+        "attackMs": 400.0,
+        "decayMs": 1000.0,
+        "releaseMs": 1200.0,
+        "sustain": 0.800000011920929
+      },
+      "cutoffHz": 1400.0,
+      "envAmount": 0.5,
+      "filter": "LOWPASS",
+      "filterEnv": {
+        "attackMs": 600.0,
+        "decayMs": 1500.0,
+        "releaseMs": 1200.0,
+        "sustain": 0.5
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.5,
+      "kind": "SYNTH",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "PAD",
+      "pan": 0.0,
+      "resonance": 0.15000000596046448,
+      "rootNote": 60,
+      "sample": null,
+      "synth": {
+        "glideMs": 0.0,
+        "lfoRateHz": 0.20000000298023224,
+        "lfoShape": "SINE",
+        "lfoSync": 0,
+        "lfoToAmp": 0.0,
+        "lfoToCutoff": 0.30000001192092896,
+        "lfoToPitch": 0.0,
+        "lfoToPw": 0.0,
+        "mono": false,
+        "noiseLevel": 0.0,
+        "osc1": "SAW",
+        "osc1Level": 1.0,
+        "osc2": "SAW",
+        "osc2Detune": 10.0,
+        "osc2Level": 0.800000011920929,
+        "osc2Semitones": 0,
+        "pulseWidth": 0.5,
+        "subLevel": 0.0,
+        "unison": 3,
+        "unisonSpread": 14.0
+      },
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": -8.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 180.0,
+        "releaseMs": 80.0,
+        "sustain": 0.6000000238418579
+      },
+      "cutoffHz": 600.0,
+      "envAmount": 0.6000000238418579,
+      "filter": "LOWPASS",
+      "filterEnv": {
+        "attackMs": 1.0,
+        "decayMs": 150.0,
+        "releaseMs": 100.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.30000001192092896,
+      "kind": "SYNTH",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "BASS",
+      "pan": 0.0,
+      "resonance": 0.30000001192092896,
+      "rootNote": 60,
+      "sample": null,
+      "synth": {
+        "glideMs": 0.0,
+        "lfoRateHz": 5.0,
+        "lfoShape": "SINE",
+        "lfoSync": 0,
+        "lfoToAmp": 0.0,
+        "lfoToCutoff": 0.0,
+        "lfoToPitch": 0.0,
+        "lfoToPw": 0.0,
+        "mono": false,
+        "noiseLevel": 0.0,
+        "osc1": "SAW",
+        "osc1Level": 1.0,
+        "osc2": "OFF",
+        "osc2Detune": 7.0,
+        "osc2Level": 0.6000000238418579,
+        "osc2Semitones": 0,
+        "pulseWidth": 0.5,
+        "subLevel": 0.5,
+        "unison": 1,
+        "unisonSpread": 12.0
+      },
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": -3.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "drum": [
+        {
+          "choke": 0,
+          "decayMs": 350.0,
+          "levelDb": 0.0,
+          "pan": 0.0,
+          "sampleSlot": -1,
+          "tone": 0.5,
+          "tune": 0.0,
+          "type": "KICK"
+        },
+        {
+          "choke": 0,
+          "decayMs": 60.0,
+          "levelDb": -6.0,
+          "pan": 0.20000000298023224,
+          "sampleSlot": -1,
+          "tone": 0.699999988079071,
+          "tune": 12.0,
+          "type": "CHIP"
+        },
+        {
+          "choke": 0,
+          "decayMs": 180.0,
+          "levelDb": -2.0,
+          "pan": 0.0,
+          "sampleSlot": -1,
+          "tone": 0.6000000238418579,
+          "tune": 0.0,
+          "type": "SNARE"
+        },
+        {
+          "choke": 0,
+          "decayMs": 220.0,
+          "levelDb": -3.0,
+          "pan": -0.10000000149011612,
+          "sampleSlot": -1,
+          "tone": 0.5,
+          "tune": 0.0,
+          "type": "CLAP"
+        },
+        {
+          "choke": 0,
+          "decayMs": 120.0,
+          "levelDb": -4.0,
+          "pan": 0.10000000149011612,
+          "sampleSlot": -1,
+          "tone": 0.800000011920929,
+          "tune": 3.0,
+          "type": "SNARE"
+        },
+        {
+          "choke": 0,
+          "decayMs": 300.0,
+          "levelDb": -3.0,
+          "pan": -0.4000000059604645,
+          "sampleSlot": -1,
+          "tone": 0.30000001192092896,
+          "tune": -5.0,
+          "type": "TOM"
+        },
+        {
+          "choke": 1,
+          "decayMs": 50.0,
+          "levelDb": -8.0,
+          "pan": 0.30000001192092896,
+          "sampleSlot": -1,
+          "tone": 0.6000000238418579,
+          "tune": 0.0,
+          "type": "HAT"
+        },
+        {
+          "choke": 0,
+          "decayMs": 260.0,
+          "levelDb": -3.0,
+          "pan": 0.0,
+          "sampleSlot": -1,
+          "tone": 0.30000001192092896,
+          "tune": 0.0,
+          "type": "TOM"
+        },
+        {
+          "choke": 1,
+          "decayMs": 90.0,
+          "levelDb": -9.0,
+          "pan": 0.30000001192092896,
+          "sampleSlot": -1,
+          "tone": 0.5,
+          "tune": 0.0,
+          "type": "HAT"
+        },
+        {
+          "choke": 0,
+          "decayMs": 220.0,
+          "levelDb": -3.0,
+          "pan": 0.4000000059604645,
+          "sampleSlot": -1,
+          "tone": 0.30000001192092896,
+          "tune": 5.0,
+          "type": "TOM"
+        },
+        {
+          "choke": 1,
+          "decayMs": 400.0,
+          "levelDb": -8.0,
+          "pan": 0.30000001192092896,
+          "sampleSlot": -1,
+          "tone": 0.6000000238418579,
+          "tune": 0.0,
+          "type": "HAT"
+        },
+        {
+          "choke": 0,
+          "decayMs": 120.0,
+          "levelDb": -6.0,
+          "pan": -0.20000000298023224,
+          "sampleSlot": -1,
+          "tone": 0.30000001192092896,
+          "tune": 0.0,
+          "type": "CHIP"
+        },
+        {
+          "choke": 0,
+          "decayMs": 40.0,
+          "levelDb": -8.0,
+          "pan": 0.0,
+          "sampleSlot": -1,
+          "tone": 0.8999999761581421,
+          "tune": 24.0,
+          "type": "CHIP"
+        },
+        {
+          "choke": 0,
+          "decayMs": 900.0,
+          "levelDb": -10.0,
+          "pan": -0.30000001192092896,
+          "sampleSlot": -1,
+          "tone": 0.4000000059604645,
+          "tune": -5.0,
+          "type": "HAT"
+        },
+        {
+          "choke": 0,
+          "decayMs": 200.0,
+          "levelDb": 0.0,
+          "pan": 0.0,
+          "sampleSlot": -1,
+          "tone": 0.5,
+          "tune": 0.0,
+          "type": "OFF"
+        },
+        {
+          "choke": 0,
+          "decayMs": 200.0,
+          "levelDb": 0.0,
+          "pan": 0.0,
+          "sampleSlot": -1,
+          "tone": 0.5,
+          "tune": 0.0,
+          "type": "OFF"
+        }
+      ],
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "DRUM",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "DRUMS",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 0.699999988079071,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 1.0,
+        "decayMs": 1400.0,
+        "releaseMs": 900.0,
+        "sustain": 0.0
+      },
+      "cutoffHz": 1200.0,
+      "envAmount": 2.5,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 5.0,
+        "decayMs": 600.0,
+        "releaseMs": 300.0,
+        "sustain": 0.20000000298023224
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.5,
+      "kind": "SYNTH",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "BELL",
+      "pan": 0.0,
+      "resonance": 0.30000001192092896,
+      "rootNote": 60,
+      "sample": null,
+      "synth": {
+        "glideMs": 0.0,
+        "lfoRateHz": 5.0,
+        "lfoShape": "SINE",
+        "lfoSync": 0,
+        "lfoToAmp": 0.0,
+        "lfoToCutoff": 0.0,
+        "lfoToPitch": 0.0,
+        "lfoToPw": 0.0,
+        "mono": false,
+        "noiseLevel": 0.0,
+        "osc1": "SINE",
+        "osc1Level": 1.0,
+        "osc2": "SINE",
+        "osc2Detune": 3.0,
+        "osc2Level": 0.44999998807907104,
+        "osc2Semitones": 19,
+        "pulseWidth": 0.5,
+        "subLevel": 0.0,
+        "unison": 1,
+        "unisonSpread": 12.0
+      },
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": -5.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    },
+    {
+      "amp": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 1.0
+      },
+      "cutoffHz": 8000.0,
+      "envAmount": 0.0,
+      "filter": "OFF",
+      "filterEnv": {
+        "attackMs": 2.0,
+        "decayMs": 300.0,
+        "releaseMs": 200.0,
+        "sustain": 0.0
+      },
+      "fineCents": 0.0,
+      "interp": "HERMITE",
+      "keyTrack": 0.0,
+      "kind": "SAMPLER",
+      "loop": "OFF",
+      "loopEnd": 0,
+      "loopStart": 0,
+      "name": "EMPTY",
+      "pan": 0.0,
+      "resonance": 0.0,
+      "rootNote": 60,
+      "sample": null,
+      "velToAmp": 1.0,
+      "velToCutoff": 0.0,
+      "volumeDb": 0.0
+    }
+  ],
+  "schemaVersion": 5,
+  "song": {
+    "countInBars": 1,
+    "currentSection": 0,
+    "currentTrack": 0,
+    "loops": [
+      {
+        "bars": 2,
+        "beatsPerBar": 4,
+        "gainDb": 0.0,
+        "lpHz": 20000.0,
+        "name": "PLAZA SLOW",
+        "quantize": "BAR",
+        "reverse": false,
+        "sample": "loops/01_PLAZA_LOOP.wav",
+        "screw": 1.0,
+        "shift": 0.0,
+        "slices": 16,
+        "sync": "VARISPEED",
+        "track": 8
+      },
+      {
+        "bars": 2,
+        "beatsPerBar": 4,
+        "gainDb": 0.0,
+        "lpHz": 20000.0,
+        "name": "PLAZA CHOP",
+        "quantize": "BAR",
+        "reverse": false,
+        "sample": "loops/02_PLAZA_LOOP.wav",
+        "screw": 1.0,
+        "shift": 0.0,
+        "slices": 16,
+        "sync": "SLICE",
+        "track": 9
+      },
+      {
+        "bars": 1,
+        "beatsPerBar": 4,
+        "gainDb": 0.0,
+        "lpHz": 20000.0,
+        "name": "EMPTY",
+        "quantize": "BAR",
+        "reverse": false,
+        "sample": null,
+        "screw": 1.0,
+        "shift": 0.0,
+        "slices": 16,
+        "sync": "VARISPEED",
+        "track": 10
+      },
+      {
+        "bars": 1,
+        "beatsPerBar": 4,
+        "gainDb": 0.0,
+        "lpHz": 20000.0,
+        "name": "EMPTY",
+        "quantize": "BAR",
+        "reverse": false,
+        "sample": null,
+        "screw": 1.0,
+        "shift": 0.0,
+        "slices": 16,
+        "sync": "VARISPEED",
+        "track": 11
+      },
+      {
+        "bars": 1,
+        "beatsPerBar": 4,
+        "gainDb": 0.0,
+        "lpHz": 20000.0,
+        "name": "EMPTY",
+        "quantize": "BAR",
+        "reverse": false,
+        "sample": null,
+        "screw": 1.0,
+        "shift": 0.0,
+        "slices": 16,
+        "sync": "VARISPEED",
+        "track": 12
+      },
+      {
+        "bars": 1,
+        "beatsPerBar": 4,
+        "gainDb": 0.0,
+        "lpHz": 20000.0,
+        "name": "EMPTY",
+        "quantize": "BAR",
+        "reverse": false,
+        "sample": null,
+        "screw": 1.0,
+        "shift": 0.0,
+        "slices": 16,
+        "sync": "VARISPEED",
+        "track": 13
+      },
+      {
+        "bars": 1,
+        "beatsPerBar": 4,
+        "gainDb": 0.0,
+        "lpHz": 20000.0,
+        "name": "EMPTY",
+        "quantize": "BAR",
+        "reverse": false,
+        "sample": null,
+        "screw": 1.0,
+        "shift": 0.0,
+        "slices": 16,
+        "sync": "VARISPEED",
+        "track": 14
+      },
+      {
+        "bars": 1,
+        "beatsPerBar": 4,
+        "gainDb": 0.0,
+        "lpHz": 20000.0,
+        "name": "EMPTY",
+        "quantize": "BAR",
+        "reverse": false,
+        "sample": null,
+        "screw": 1.0,
+        "shift": 0.0,
+        "slices": 16,
+        "sync": "VARISPEED",
+        "track": 15
+      }
+    ],
+    "masterDb": -2.0,
+    "masterFx": [
+      {
+        "p": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "type": "OFF"
+      },
+      {
+        "p": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "type": "OFF"
+      }
+    ],
+    "metronome": "OFF",
+    "order": [
+      0,
+      1,
+      2
+    ],
+    "patterns": [
+      {
+        "automation": [],
+        "grid": "1/16",
+        "name": "ARRIVAL",
+        "notes": [
+          [
+            1,
+            0,
+            7680,
+            48,
+            60
+          ],
+          [
+            1,
+            0,
+            7680,
+            55,
+            60
+          ],
+          [
+            1,
+            0,
+            7680,
+            59,
+            60
+          ],
+          [
+            1,
+            0,
+            7680,
+            64,
+            60
+          ],
+          [
+            4,
+            0,
+            7680,
+            60,
+            100
+          ]
+        ],
+        "steps": 32
+      },
+      {
+        "automation": [],
+        "grid": "1/16",
+        "name": "ESCALATOR",
+        "notes": [
+          [
+            3,
+            0,
+            480,
+            36,
+            115
+          ],
+          [
+            3,
+            480,
+            240,
+            42,
+            50
+          ],
+          [
+            3,
+            960,
+            480,
+            36,
+            90
+          ],
+          [
+            3,
+            960,
+            480,
+            38,
+            70
+          ],
+          [
+            3,
+            1440,
+            240,
+            42,
+            50
+          ],
+          [
+            3,
+            1920,
+            480,
+            36,
+            115
+          ],
+          [
+            3,
+            2400,
+            240,
+            42,
+            50
+          ],
+          [
+            3,
+            2880,
+            480,
+            36,
+            90
+          ],
+          [
+            3,
+            2880,
+            480,
+            38,
+            70
+          ],
+          [
+            3,
+            3360,
+            240,
+            42,
+            50
+          ],
+          [
+            3,
+            3840,
+            480,
+            36,
+            115
+          ],
+          [
+            3,
+            4320,
+            240,
+            42,
+            50
+          ],
+          [
+            3,
+            4800,
+            480,
+            36,
+            90
+          ],
+          [
+            3,
+            4800,
+            480,
+            38,
+            70
+          ],
+          [
+            3,
+            5280,
+            240,
+            42,
+            50
+          ],
+          [
+            3,
+            5760,
+            480,
+            36,
+            115
+          ],
+          [
+            3,
+            6240,
+            240,
+            42,
+            50
+          ],
+          [
+            3,
+            6720,
+            480,
+            36,
+            90
+          ],
+          [
+            3,
+            6720,
+            480,
+            38,
+            70
+          ],
+          [
+            3,
+            7200,
+            240,
+            42,
+            50
+          ],
+          [
+            4,
+            0,
+            7680,
+            61,
+            100
+          ],
+          [
+            5,
+            0,
+            864,
+            79,
+            70
+          ],
+          [
+            5,
+            960,
+            864,
+            76,
+            70
+          ],
+          [
+            5,
+            1920,
+            1728,
+            72,
+            70
+          ],
+          [
+            5,
+            4800,
+            864,
+            74,
+            70
+          ],
+          [
+            5,
+            5760,
+            1728,
+            71,
+            70
+          ]
+        ],
+        "steps": 32
+      },
+      {
+        "automation": [],
+        "grid": "1/16",
+        "name": "CLOSING TIME",
+        "notes": [
+          [
+            1,
+            0,
+            7680,
+            45,
+            55
+          ],
+          [
+            1,
+            0,
+            7680,
+            52,
+            55
+          ],
+          [
+            1,
+            0,
+            7680,
+            55,
+            55
+          ],
+          [
+            1,
+            0,
+            7680,
+            60,
+            55
+          ],
+          [
+            4,
+            0,
+            7680,
+            60,
+            100
+          ],
+          [
+            5,
+            3840,
+            1728,
+            76,
+            50
+          ],
+          [
+            5,
+            5760,
+            1728,
+            72,
+            50
+          ]
+        ],
+        "steps": 32
+      },
+      {
+        "automation": [],
+        "grid": "1/16",
+        "name": "SOURCE",
+        "notes": [
+          [
+            0,
+            0,
+            1440,
+            55,
+            95
+          ],
+          [
+            0,
+            0,
+            1440,
+            59,
+            95
+          ],
+          [
+            0,
+            0,
+            1440,
+            62,
+            95
+          ],
+          [
+            0,
+            0,
+            1440,
+            66,
+            95
+          ],
+          [
+            0,
+            1440,
+            960,
+            55,
+            75
+          ],
+          [
+            0,
+            1440,
+            960,
+            59,
+            75
+          ],
+          [
+            0,
+            1440,
+            960,
+            62,
+            75
+          ],
+          [
+            0,
+            1440,
+            960,
+            66,
+            75
+          ],
+          [
+            0,
+            2880,
+            960,
+            55,
+            80
+          ],
+          [
+            0,
+            2880,
+            960,
+            59,
+            80
+          ],
+          [
+            0,
+            2880,
+            960,
+            62,
+            80
+          ],
+          [
+            0,
+            2880,
+            960,
+            66,
+            80
+          ],
+          [
+            0,
+            3840,
+            1440,
+            52,
+            95
+          ],
+          [
+            0,
+            3840,
+            1440,
+            55,
+            95
+          ],
+          [
+            0,
+            3840,
+            1440,
+            59,
+            95
+          ],
+          [
+            0,
+            3840,
+            1440,
+            62,
+            95
+          ],
+          [
+            0,
+            3840,
+            1440,
+            66,
+            95
+          ],
+          [
+            0,
+            5280,
+            960,
+            52,
+            75
+          ],
+          [
+            0,
+            5280,
+            960,
+            55,
+            75
+          ],
+          [
+            0,
+            5280,
+            960,
+            59,
+            75
+          ],
+          [
+            0,
+            5280,
+            960,
+            62,
+            75
+          ],
+          [
+            0,
+            5280,
+            960,
+            66,
+            75
+          ],
+          [
+            0,
+            6720,
+            960,
+            52,
+            80
+          ],
+          [
+            0,
+            6720,
+            960,
+            55,
+            80
+          ],
+          [
+            0,
+            6720,
+            960,
+            59,
+            80
+          ],
+          [
+            0,
+            6720,
+            960,
+            62,
+            80
+          ],
+          [
+            0,
+            6720,
+            960,
+            66,
+            80
+          ],
+          [
+            2,
+            0,
+            1296,
+            43,
+            100
+          ],
+          [
+            2,
+            1440,
+            864,
+            43,
+            100
+          ],
+          [
+            2,
+            2400,
+            1296,
+            50,
+            100
+          ],
+          [
+            2,
+            3840,
+            1296,
+            40,
+            100
+          ],
+          [
+            2,
+            5280,
+            864,
+            40,
+            100
+          ],
+          [
+            2,
+            6240,
+            1296,
+            47,
+            100
+          ]
+        ],
+        "steps": 32
+      }
+    ],
+    "playMode": "SONG",
+    "quantizeOnRecord": false,
+    "recordOffsetMs": 0,
+    "recordQuantize": "1/16",
+    "returnLevel": [
+      1.0,
+      1.0
+    ],
+    "returns": [
+      {
+        "p": [
+          0.8999999761581421,
+          0.44999998807907104,
+          40.0,
+          1.0,
+          1.0
+        ],
+        "type": "PLATE"
+      },
+      {
+        "p": [
+          3.0,
+          0.44999998807907104,
+          5000.0,
+          1.0,
+          1.0
+        ],
+        "type": "DELAY"
+      }
+    ],
+    "sections": [
+      {
+        "bpm10": 720,
+        "pattern": 0,
+        "repeats": 2,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 720,
+        "pattern": 1,
+        "repeats": 4,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 720,
+        "pattern": 2,
+        "repeats": 2,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 960,
+        "pattern": 3,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      },
+      {
+        "bpm10": 1200,
+        "pattern": 0,
+        "repeats": 1,
+        "sigDen": 4,
+        "sigNum": 4
+      }
+    ],
+    "snesEcho": {
+      "delay": 4,
+      "feedback": 50,
+      "fir": [
+        127,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "noiseRate": 28,
+      "volL": 40,
+      "volR": 40
+    },
+    "strict": {
+      "cmi": false,
+      "gb": false,
+      "snes": false
+    },
+    "swing": 50,
+    "swingGrid": "1/16",
+    "tracks": [
+      {
+        "inserts": [
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          },
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          }
+        ],
+        "instrument": 0,
+        "midi": {
+          "channel": 1,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "E.PIANO",
+        "pan": 0.0,
+        "sendA": 0.0,
+        "sendB": 0.0,
+        "solo": false,
+        "swing": false,
+        "type": "NOTES",
+        "volumeDb": 0.0
+      },
+      {
+        "inserts": [
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          },
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          }
+        ],
+        "instrument": 1,
+        "midi": {
+          "channel": 2,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "PAD",
+        "pan": 0.0,
+        "sendA": 0.699999988079071,
+        "sendB": 0.0,
+        "solo": false,
+        "swing": false,
+        "type": "NOTES",
+        "volumeDb": -5.0
+      },
+      {
+        "inserts": [
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          },
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          }
+        ],
+        "instrument": 2,
+        "midi": {
+          "channel": 3,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "BASS",
+        "pan": 0.0,
+        "sendA": 0.0,
+        "sendB": 0.0,
+        "solo": false,
+        "swing": false,
+        "type": "NOTES",
+        "volumeDb": 0.0
+      },
+      {
+        "inserts": [
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          },
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          }
+        ],
+        "instrument": 3,
+        "midi": {
+          "channel": 4,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "DRUMS",
+        "pan": 0.0,
+        "sendA": 0.0,
+        "sendB": 0.0,
+        "solo": false,
+        "swing": false,
+        "type": "NOTES",
+        "volumeDb": 0.0
+      },
+      {
+        "inserts": [
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          },
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          }
+        ],
+        "instrument": 4,
+        "midi": {
+          "channel": 5,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "LOOPS",
+        "pan": 0.0,
+        "sendA": 0.0,
+        "sendB": 0.0,
+        "solo": false,
+        "swing": false,
+        "type": "LOOPS",
+        "volumeDb": 0.0
+      },
+      {
+        "inserts": [
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          },
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          }
+        ],
+        "instrument": 5,
+        "midi": {
+          "channel": 6,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "BELL",
+        "pan": 0.0,
+        "sendA": 0.5,
+        "sendB": 0.30000001192092896,
+        "solo": false,
+        "swing": false,
+        "type": "NOTES",
+        "volumeDb": -6.0
+      },
+      {
+        "inserts": [
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          },
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          }
+        ],
+        "instrument": 6,
+        "midi": {
+          "channel": 7,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "TRACK 7",
+        "pan": 0.0,
+        "sendA": 0.0,
+        "sendB": 0.0,
+        "solo": false,
+        "swing": false,
+        "type": "NOTES",
+        "volumeDb": 0.0
+      },
+      {
+        "inserts": [
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          },
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          }
+        ],
+        "instrument": 7,
+        "midi": {
+          "channel": 8,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "TRACK 8",
+        "pan": 0.0,
+        "sendA": 0.0,
+        "sendB": 0.0,
+        "solo": false,
+        "swing": false,
+        "type": "NOTES",
+        "volumeDb": 0.0
+      },
+      {
+        "inserts": [
+          {
+            "p": [
+              0.4000000059604645,
+              0.30000001192092896,
+              0.30000001192092896,
+              0.20000000298023224,
+              1.0
+            ],
+            "type": "TAPE"
+          },
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          }
+        ],
+        "instrument": 8,
+        "midi": {
+          "channel": 9,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "LOOP SLOW",
+        "pan": 0.0,
+        "sendA": 0.4000000059604645,
+        "sendB": 0.0,
+        "solo": false,
+        "swing": false,
+        "type": "NOTES",
+        "volumeDb": 0.0
+      },
+      {
+        "inserts": [
+          {
+            "p": [
+              3.0,
+              0.699999988079071,
+              160.0,
+              -26.0,
+              0.0
+            ],
+            "type": "DUCK"
+          },
+          {
+            "p": [
+              0.0,
+              1.0,
+              8000.0,
+              0.0,
+              0.5
+            ],
+            "type": "CHORUS"
+          }
+        ],
+        "instrument": 9,
+        "midi": {
+          "channel": 10,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "LOOP CHOP",
+        "pan": 0.0,
+        "sendA": 0.0,
+        "sendB": 0.0,
+        "solo": false,
+        "swing": false,
+        "type": "NOTES",
+        "volumeDb": 5.0
+      },
+      {
+        "inserts": [
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          },
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          }
+        ],
+        "instrument": 10,
+        "midi": {
+          "channel": 11,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "TRACK C",
+        "pan": 0.0,
+        "sendA": 0.0,
+        "sendB": 0.0,
+        "solo": false,
+        "swing": false,
+        "type": "NOTES",
+        "volumeDb": 0.0
+      },
+      {
+        "inserts": [
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          },
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          }
+        ],
+        "instrument": 11,
+        "midi": {
+          "channel": 12,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "TRACK D",
+        "pan": 0.0,
+        "sendA": 0.0,
+        "sendB": 0.0,
+        "solo": false,
+        "swing": false,
+        "type": "NOTES",
+        "volumeDb": 0.0
+      },
+      {
+        "inserts": [
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          },
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          }
+        ],
+        "instrument": 12,
+        "midi": {
+          "channel": 13,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "TRACK E",
+        "pan": 0.0,
+        "sendA": 0.0,
+        "sendB": 0.0,
+        "solo": false,
+        "swing": false,
+        "type": "NOTES",
+        "volumeDb": 0.0
+      },
+      {
+        "inserts": [
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          },
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          }
+        ],
+        "instrument": 13,
+        "midi": {
+          "channel": 14,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "TRACK F",
+        "pan": 0.0,
+        "sendA": 0.0,
+        "sendB": 0.0,
+        "solo": false,
+        "swing": false,
+        "type": "NOTES",
+        "volumeDb": 0.0
+      },
+      {
+        "inserts": [
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          },
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          }
+        ],
+        "instrument": 14,
+        "midi": {
+          "channel": 15,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "TRACK G",
+        "pan": 0.0,
+        "sendA": 0.0,
+        "sendB": 0.0,
+        "solo": false,
+        "swing": false,
+        "type": "NOTES",
+        "volumeDb": 0.0
+      },
+      {
+        "inserts": [
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          },
+          {
+            "p": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "type": "OFF"
+          }
+        ],
+        "instrument": 15,
+        "midi": {
+          "channel": 16,
+          "dest": "INTERNAL",
+          "port": "",
+          "program": 0
+        },
+        "mute": false,
+        "name": "TRACK H",
+        "pan": 0.0,
+        "sendA": 0.0,
+        "sendB": 0.0,
+        "solo": false,
+        "swing": false,
+        "type": "NOTES",
+        "volumeDb": 0.0
+      }
+    ],
+    "vapor": 50
+  }
+}

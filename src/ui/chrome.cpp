@@ -61,24 +61,33 @@ void draw_header(gfx::Canvas& c, const Ui& ui) {
     const bool hot = ui.hovered(ZoneOwner::Chrome, kZoneIndex);
     const Rect index_rect = cells(0, kRowHeader, 5, 1);
     if (hot) {
-        c.fill_rect(Rect{index_rect.x, index_rect.y, index_rect.w + 1, index_rect.h}, gfx::kInkBright);
+        c.fill_rect(Rect{index_rect.x, index_rect.y, index_rect.w + 1, index_rect.h}, gfx::kInkSelect);
     }
     widgets::text(c, ui, 0, kRowHeader, "INDEX", hot ? gfx::kInkBg : gfx::kInkText);
     ui.add_zone(index_rect, ZoneOwner::Chrome, kZoneIndex);
 
-    c.fill_rect(cells(kBarCol, kRowHeader, kBarCols, 1), gfx::kInkBright);
+    c.fill_rect(cells(kBarCol, kRowHeader, kBarCols, 1), gfx::kInkTab);
     const std::string banner = "***  PAGE " + std::string(ui.current_page_id()) + " READY  ***";
     widgets::centered_text(c, ui, kBarCol, kBarCols, kRowHeader, banner, gfx::kInkBg);
 
     const StatusInfo& st = ui.app().status();
+    // Tempo and signature of the playing section, or of the section being edited when stopped.
+    const model::Song& song = ui.app().workspace().doc().song;
+    const model::Section& sec = song.sections[static_cast<std::size_t>(st.playing ? st.section : song.current_section)];
     char buf[32];
-    std::snprintf(buf, sizeof buf, "%5.1f %2d/%-2d", st.bpm, st.sig_num, st.sig_den);
+    std::snprintf(buf, sizeof buf, "%5.1f %2d/%-2d", sec.bpm10 / 10.0, sec.sig_num, sec.sig_den);
     widgets::text(c, ui, kRightCol, kRowHeader, buf);
-    std::snprintf(buf, sizeof buf, "%03d:%d:%03d", st.bar, st.beat, st.tick);
-    widgets::text(c, ui, kRightCol, kRowCommand, buf);
-    const char transport = st.playing ? gfx::glyph::kPlay : gfx::glyph::kSquare;
+    // Section letter and BAR:BEAT:TICK in the playing pattern; REC blinks while recording.
+    std::snprintf(buf, sizeof buf, "%c%03d:%d:%03d", 'A' + (st.playing ? st.section : song.current_section), st.bar,
+                  st.beat, st.tick);
+    widgets::text(c, ui, kRightCol, kRowCommand, buf, st.playing ? gfx::kInkPlay : gfx::kInkText);
+    const bool blink = std::fmod(ui.app().time_s(), 0.5) < 0.3;
+    const char transport = st.recording || st.count_in ? gfx::glyph::kDot : st.playing ? gfx::glyph::kPlay : gfx::glyph::kSquare;
     widgets::text(c, ui, kRightCol + 10, kRowCommand, std::string_view(&transport, 1),
-                  st.playing ? gfx::kInkBright : gfx::kInkDim);
+                  st.recording ? (blink ? gfx::kInkWarn : gfx::kInkDim)
+                  : st.count_in ? gfx::kInkWarn
+                  : st.playing  ? gfx::kInkPlay
+                                : gfx::kInkDim);
 }
 
 void draw_command_line(gfx::Canvas& c, const Ui& ui) {
@@ -87,6 +96,10 @@ void draw_command_line(gfx::Canvas& c, const Ui& ui) {
     c.fill_rect(field, gfx::kInkField);
     ui.add_zone(field, ZoneOwner::Chrome, kZoneCommand);
     const CommandLine& cl = ui.command_line();
+    if (ui.keyjazz()) {
+        widgets::text(c, ui, kBarCol + 1, kRowCommand, "KEYJAZZ ON - KEYS PLAY NOTES, ESC = OFF", gfx::kInkDim);
+        return;
+    }
     widgets::text(c, ui, kBarCol + 1, kRowCommand, cl.text());
     if (ui.focus() == Focus::Command) {
         // Block cursor, blinking at ~2 Hz (steady in headless renders: time is fixed at 0).
@@ -94,7 +107,7 @@ void draw_command_line(gfx::Canvas& c, const Ui& ui) {
         if (on) {
             const int col = kBarCol + 1 + static_cast<int>(cl.cursor());
             const Rect cur = cells(col, kRowCommand, 1, 1);
-            c.fill_rect(Rect{cur.x, cur.y + 1, cur.w - 1, cur.h - 2}, gfx::kInkBright);
+            c.fill_rect(Rect{cur.x, cur.y + 1, cur.w - 1, cur.h - 2}, gfx::kInkCursor);
             if (cl.cursor() < cl.text().size()) {
                 gfx::draw_text(c, ui.fonts().large, cur.x, cur.y, std::string_view(&cl.text()[cl.cursor()], 1),
                                gfx::kInkBg);
@@ -114,7 +127,7 @@ void draw_soft_keys(gfx::Canvas& c, const Ui& ui) {
         const std::string key_name = i < 12 ? "F" + std::to_string(i + 1) : (i == 12 ? "P" : "S");
         const Rect body{r.x + 1, r.y + 1, r.w - 2, r.h - 2};
         if (hot) {
-            c.fill_rect(body, gfx::kInkBright);
+            c.fill_rect(body, gfx::kInkSelect);
         }
         widgets::small_text(c, ui, body.x + 1, body.y + 1, key_name, hot ? gfx::kInkBg : gfx::kInkDim, 5);
         if (command.empty()) {
@@ -133,8 +146,14 @@ void draw_soft_keys(gfx::Canvas& c, const Ui& ui) {
 void draw_info_line(gfx::Canvas& c, const Ui& ui) {
     c.fill_rect(cells(0, kRowInfo, kCols, 1), gfx::kInkField);
     widgets::text(c, ui, 1, kRowInfo, "INFO:");
-    const std::string msg = fit(to_upper(ui.message_text()), 33);
-    widgets::text(c, ui, 7, kRowInfo, msg, ui.message_is_error() ? gfx::kInkWarn : gfx::kInkText);
+    // Message field: columns 7..39. Long messages roll (clipped to the field).
+    const std::string msg = to_upper(ui.message_text());
+    const gfx::Rect box = cells(7, kRowInfo, 33, 1);
+    const int offset = roll_offset(static_cast<int>(msg.size()) * kCellW, box.w, ui.app().time_s() - ui.message_time());
+    const gfx::Rect saved = c.clip();
+    c.set_clip(box);
+    widgets::text_px(c, ui, box.x - offset, box.y, msg, ui.message_is_error() ? gfx::kInkWarn : gfx::kInkText);
+    c.set_clip(saved);
 
     const StatusInfo& st = ui.app().status();
     char buf[48];
@@ -167,6 +186,16 @@ void draw(gfx::Canvas& canvas, const Ui& ui) {
     draw_command_line(canvas, ui);
     draw_soft_keys(canvas, ui);
     draw_info_line(canvas, ui);
+}
+
+int roll_offset(int text_px, int box_px, double elapsed_s) {
+    const int travel = text_px - box_px;
+    if (travel <= 0 || elapsed_s <= kRollHoldS) {
+        return 0;
+    }
+    const double scroll_s = travel / kRollPxPerS;
+    const double t = std::fmod(elapsed_s - kRollHoldS, scroll_s + 2.0 * kRollHoldS);
+    return t < scroll_s ? static_cast<int>(t * kRollPxPerS) : t < scroll_s + kRollHoldS ? travel : 0;
 }
 
 } // namespace phos::ui::chrome

@@ -20,13 +20,23 @@ int main(int argc, char** argv) {
         std::printf("%s %s\n", phos::product_name().data(), phos::version_string().data());
         return 0;
     }
-    if (!options->render_audio.empty() || !options->analyze.empty()) {
-        std::fprintf(stderr, "error: audio rendering and analysis arrive with the engine (M1/M8)\n");
-        return 2;
+    if (!options->render_audio.empty()) {
+        return render_audio(*options);
     }
-    if (options->list_devices || options->latency_report) {
-        std::fprintf(stderr, "error: device listing and latency report arrive in M1/M2\n");
-        return 2;
+    if (options->midi_loopback) {
+        return midi_loopback(*options);
+    }
+    if (options->latency_report) {
+        return latency_report(*options);
+    }
+    if (options->list_devices) {
+        return list_devices();
+    }
+    if (!options->analyze.empty()) {
+        return analyze_file(options->analyze);
+    }
+    if (!options->render_test.empty()) {
+        return render_test(options->render_test, options->seconds);
     }
     if (options->headless) {
         return run_headless(*options);

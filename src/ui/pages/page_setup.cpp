@@ -5,8 +5,10 @@
 #include <string>
 
 #include "core/text.h"
+#include "engine/audio_backend.h"
 #include "gfx/palette.h"
 #include "ui/layout.h"
+#include "ui/page_catalog.h"
 #include "ui/pages/pages.h"
 #include "ui/ui.h"
 #include "ui/widgets.h"
@@ -28,6 +30,7 @@ enum Field : int {
     kOverscanB,
     kTheme,
     kCrt,
+    kPageKey, // settings.json, not the display profile
     kScanlines,
     kMask,
     kBloom,
@@ -35,8 +38,19 @@ enum Field : int {
     kVignette,
     kCurve,
     kBright,
+    kAudioDevice,
+    kAudioOn,
+    kExclusive,
+    kRate,
+    kBuffer,
+    kTest,
+    kMaster,
     kFieldCount
 };
+
+bool is_audio(int f) { return f >= kAudioDevice; }
+// Fields stored in settings.json (set through set_audio_option), not in the display profile.
+bool is_setting(int f) { return is_audio(f) || f == kPageKey; }
 
 // Zone ids: field * 16 + option index.
 constexpr int zone_of(int field, int option = 0) { return field * 16 + option; }
@@ -44,6 +58,12 @@ constexpr int zone_of(int field, int option = 0) { return field * 16 + option; }
 constexpr std::array<std::string_view, 2> kOffOn = {"OFF", "ON"};
 constexpr std::array<std::string_view, 3> kScales = {"FIT", "INTEGER", "STRETCH"};
 constexpr std::array<std::string_view, 1> kNext = {"NEXT"};
+constexpr std::array<std::string_view, 3> kTests = {"OFF", "TONE", "CLICK"};
+constexpr std::array<std::string_view, 4> kPageKeys = {"OFF", "CTRL", "ALT", "CMD"};
+constexpr std::array<int, 4> kPageKeyMods = {0, kModCtrl, kModAlt, kModSuper};
+constexpr std::array<std::string_view, 4> kRates = {"44100", "48000", "88200", "96000"};
+constexpr std::array<std::string_view, 6> kBuffers = {"32", "64", "128", "256", "512", "1024"};
+static_assert(std::size(engine::kRateChoices) == kRates.size() && std::size(engine::kBufferChoices) == kBuffers.size());
 
 constexpr int kLabelCol = 2;
 constexpr int kEqCols = 11; // '=' column offset from the label
@@ -192,6 +212,139 @@ void set_option(DisplayProfile& p, int f, int v) {
     }
 }
 
+template <std::size_t N> int index_of(const std::uint32_t (&values)[N], std::uint32_t v) {
+    for (std::size_t i = 0; i < N; ++i) {
+        if (values[i] == v) {
+            return static_cast<int>(i);
+        }
+    }
+    return -1; // not one of the choices (e.g. hand-edited settings.json): nothing highlighted
+}
+
+int audio_option_count(int f) {
+    switch (f) {
+    case kAudioOn:
+    case kExclusive:
+        return 2;
+    case kRate:
+        return static_cast<int>(kRates.size());
+    case kBuffer:
+        return static_cast<int>(kBuffers.size());
+    case kTest:
+        return static_cast<int>(kTests.size());
+    case kPageKey:
+        return static_cast<int>(kPageKeys.size());
+    default:
+        return 0;
+    }
+}
+
+int audio_option_value(const AppContext& app, int f) {
+    const engine::AudioConfig& a = app.audio_config();
+    switch (f) {
+    case kAudioOn:
+        return a.enabled ? 1 : 0;
+    case kExclusive:
+        return a.exclusive ? 1 : 0;
+    case kRate:
+        return index_of(engine::kRateChoices, a.sample_rate);
+    case kBuffer:
+        return index_of(engine::kBufferChoices, a.buffer_frames);
+    case kTest:
+        return app.audio().tone_note >= 0 ? 1 : 0;
+    case kPageKey:
+        for (std::size_t i = 0; i < kPageKeyMods.size(); ++i) {
+            if (kPageKeyMods[i] == app.page_modifier()) {
+                return static_cast<int>(i);
+            }
+        }
+        return 0;
+    default:
+        return 0;
+    }
+}
+
+void set_audio_option(Ui& ui, int f, int v) {
+    const int n = audio_option_count(f);
+    if (n == 0) {
+        return;
+    }
+    v = ((v % n) + n) % n;
+    if (f == kTest) {
+        ui.execute(v == 0 ? "TONE OFF" : v == 1 ? "TONE A4" : "CLICK");
+        return;
+    }
+    if (f == kPageKey) {
+        ui.execute("PAGEKEY " + std::string(kPageKeys[static_cast<std::size_t>(v)]));
+        return;
+    }
+    engine::AudioConfig a = ui.app().audio_config();
+    switch (f) {
+    case kAudioOn:
+        a.enabled = v == 1;
+        break;
+    case kExclusive:
+        a.exclusive = v == 1;
+        break;
+    case kRate:
+        a.sample_rate = engine::kRateChoices[v];
+        break;
+    case kBuffer:
+        a.buffer_frames = engine::kBufferChoices[v];
+        break;
+    default:
+        break;
+    }
+    ui.app().set_audio_config(a);
+}
+
+// Key-map chords the page key takes over ("CMD+K KEYJAZZ, CMD+S SAVE"), empty if none.
+std::string page_key_hides(const Ui& ui) {
+    const int mods = ui.app().page_modifier();
+    std::string out;
+    if (mods == 0) {
+        return out;
+    }
+    for (const char ch : std::string_view("012345678CDKLMRSHP")) {
+        if (ch != 'P' && !find_page_info(std::string(1, ch))) {
+            continue;
+        }
+        InputEvent ev;
+        ev.key = Key::Char;
+        ev.ch = ch;
+        ev.mods = mods;
+        if (const std::string* cmd = ui.keys().lookup(ev)) {
+            out += (out.empty() ? "" : ", ") + std::string(page_modifier_name(mods)) + "+" + ch + " " + *cmd;
+        }
+    }
+    return out;
+}
+
+std::string audio_status_line(const AudioInfo& info) {
+    const engine::AudioStatus& st = info.status;
+    if (!info.available) {
+        return "NO AUDIO ENGINE (HEADLESS)";
+    }
+    if (!st.running) {
+        return "STOPPED: " + (st.error.empty() ? std::string("--") : st.error);
+    }
+    char buf[96];
+    const double ms = st.sample_rate ? 1000.0 * st.buffer_frames / st.sample_rate : 0.0;
+    std::snprintf(buf, sizeof buf, "RUNNING  %u HZ  %u FR X %u (%.1f MS)  %u CH%s", st.sample_rate, st.buffer_frames,
+                  st.periods, ms, st.channels, st.exclusive ? "  EXCLUSIVE" : "");
+    return buf;
+}
+
+std::string engine_stats_line(const AudioInfo& info) {
+    const engine::EngineMeters& m = info.meters;
+    char buf[112];
+    std::snprintf(buf, sizeof buf, "CPU %3d%% (PEAK %3d%%)  XRUNS %llu  OVERLOADS %llu  GUARD %s",
+                  static_cast<int>(std::lround(m.cpu * 100.0f)), static_cast<int>(std::lround(m.cpu_peak * 100.0f)),
+                  static_cast<unsigned long long>(m.xruns), static_cast<unsigned long long>(m.overloads),
+                  info.guard_enabled ? std::to_string(info.guard_violations).c_str() : "OFF");
+    return buf;
+}
+
 class SetupPage final : public Page {
 public:
     std::string_view id() const override { return "S"; }
@@ -238,6 +391,8 @@ public:
         case Key::Enter:
             if (focus_ == kMonitor) {
                 ui.execute("DISPLAY NEXT");
+            } else if (focus_ == kAudioDevice) {
+                ui.execute("AUDIO NEXT");
             } else {
                 change(ui, 1);
             }
@@ -260,6 +415,10 @@ public:
         }
         if (field == kMonitor) {
             ui.execute("DISPLAY NEXT");
+        } else if (field == kAudioDevice) {
+            ui.execute("AUDIO NEXT");
+        } else if (is_setting(field)) {
+            set_audio_option(ui, field, option);
         } else if (option_count(field) > 0) {
             DisplayProfile p = ui.app().profile();
             set_option(p, field, option);
@@ -273,7 +432,7 @@ public:
         const bool fields = ui.focus() == Focus::Fields;
         auto focused = [&](int f) { return fields && focus_ == f; };
 
-        widgets::frame(c, ui, gfx::Rect{2, py(2) + 6, kCanvasW - 4, py(21) - 3 - (py(2) + 6)}, "DISPLAY");
+        widgets::frame(c, ui, gfx::Rect{2, py(2) + 6, kCanvasW - 4, py(19) - 3 - (py(2) + 6)}, "DISPLAY");
 
         widgets::label(c, ui, kLabelCol, 3, "MONITOR", kEqCols);
         widgets::text(c, ui, kValueCol, 3, fit(to_upper(d.monitor_name), 30));
@@ -305,7 +464,7 @@ public:
             widgets::value_field(c, ui, col + 2, 8, 5, number_text(f, *number_ref(copy, f)), focused(f), zone_of(f));
         }
 
-        std::array<std::string_view, 5> themes{};
+        std::array<std::string_view, 6> themes{}; // every theme in gfx/palette.cpp
         for (std::size_t i = 0; i < themes.size() && i < gfx::all_themes().size(); ++i) {
             themes[i] = gfx::all_themes()[i].name;
         }
@@ -314,6 +473,7 @@ public:
         c.dotted_line(px(1), py(10) + 6, kCanvasW - px(1), py(10) + 6, 3, gfx::kInkGrid);
 
         draw_options(c, ui, kCrt, kLabelCol, kValueCol, 11, "CRT PASS", kOffOn, p, fields);
+        draw_audio_options(c, ui, kPageKey, kRightLabelCol, kRightValueCol, 11, "PAGE KEY", kPageKeys, fields);
         draw_number(c, ui, kScanlines, kLabelCol, kValueCol, 12, "SCANLINES", p, fields);
         draw_number(c, ui, kMask, kLabelCol, kValueCol, 13, "MASK", p, fields);
         draw_number(c, ui, kBloom, kLabelCol, kValueCol, 14, "BLOOM", p, fields);
@@ -322,26 +482,13 @@ public:
         draw_number(c, ui, kCurve, kRightLabelCol, kRightValueCol, 14, "CURVATURE", p, fields);
         draw_number(c, ui, kBright, kRightLabelCol, kRightValueCol, 15, "BRIGHTNESS", p, fields);
 
-        widgets::small_text(c, ui, px(kLabelCol), py(17) + 2,
+        widgets::small_text(c, ui, px(kLabelCol), py(16) + 2,
                             "ARROWS SELECT, LEFT/RIGHT OR +/- CHANGE (SHIFT X10), ESC = COMMAND LINE", gfx::kInkDim);
-        widgets::small_text(c, ui, px(kLabelCol), py(18) + 2,
+        widgets::small_text(c, ui, px(kLabelCol), py(17) + 2,
                             "SAVED PER MONITOR IN DISPLAY_PROFILES.JSON.  TYPE TESTCARD TO CHECK GEOMETRY.",
                             gfx::kInkDim);
 
-        widgets::frame(c, ui, gfx::Rect{2, py(21) + 6, kCanvasW - 4, py(29) - 3 - (py(21) + 6)}, "AUDIO / MIDI",
-                       gfx::kInkGrid);
-        constexpr std::array<std::pair<std::string_view, std::string_view>, 5> kLater = {{
-            {"AUDIO DEVICE", "M1"},
-            {"BUFFER / RATE", "M1"},
-            {"MIDI INPUTS", "M2"},
-            {"LATENCY REPORT", "M2"},
-            {"MIDI OUTPUT", "M8"},
-        }};
-        for (std::size_t i = 0; i < kLater.size(); ++i) {
-            const int row = 22 + static_cast<int>(i);
-            widgets::text(c, ui, kLabelCol, row, kLater[i].first, gfx::kInkDim);
-            widgets::text(c, ui, kValueCol + 2, row, "-- ARRIVES IN " + std::string(kLater[i].second), gfx::kInkGrid);
-        }
+        draw_audio(c, ui, fields);
     }
 
 private:
@@ -362,9 +509,67 @@ private:
                              zone_of(f));
     }
 
+    void draw_audio(gfx::Canvas& c, const Ui& ui, bool fields) const {
+        const AudioInfo& info = ui.app().audio();
+        const engine::AudioConfig& cfg = ui.app().audio_config();
+        auto focused = [&](int f) { return fields && focus_ == f; };
+        widgets::frame(c, ui, gfx::Rect{2, py(19) + 6, kCanvasW - 4, py(29) - 3 - (py(19) + 6)}, "AUDIO / MIDI");
+
+        widgets::label(c, ui, kLabelCol, 20, "DEVICE", kEqCols);
+        const std::string name = info.status.running ? info.status.device
+                                 : cfg.device.empty()  ? std::string("SYSTEM DEFAULT")
+                                                       : cfg.device;
+        widgets::text(c, ui, kValueCol, 20, fit(to_upper(name), 30), info.status.running ? gfx::kInkText : gfx::kInkDim);
+        char buf[32];
+        std::snprintf(buf, sizeof buf, "%d DEV", static_cast<int>(info.devices.size()));
+        widgets::text(c, ui, 47, 20, buf, gfx::kInkDim);
+        widgets::option_group(c, ui, 56, 20, kNext, focused(kAudioDevice) ? 0 : -1, false, zone_of(kAudioDevice));
+        widgets::small_text(c, ui, px(kValueCol), py(21) + 2, audio_status_line(info),
+                            info.status.running ? gfx::kInkDim : gfx::kInkWarn);
+
+        draw_audio_options(c, ui, kAudioOn, kLabelCol, kValueCol, 22, "OUTPUT", kOffOn, fields);
+        draw_audio_options(c, ui, kExclusive, kRightLabelCol, kRightValueCol, 22, "EXCLUSIVE", kOffOn, fields);
+        draw_audio_options(c, ui, kRate, kLabelCol, kValueCol, 23, "RATE", kRates, fields);
+        draw_audio_options(c, ui, kBuffer, kLabelCol, kValueCol, 24, "BUFFER", kBuffers, fields);
+        draw_audio_options(c, ui, kTest, kLabelCol, kValueCol, 25, "TEST", kTests, fields);
+        widgets::label(c, ui, kRightLabelCol, 25, "MASTER DB", kEqCols);
+        std::snprintf(buf, sizeof buf, "%5.1f", static_cast<double>(info.master_db));
+        widgets::value_field(c, ui, kRightValueCol, 25, 5, buf, focused(kMaster), zone_of(kMaster));
+
+        widgets::small_text(c, ui, px(kLabelCol), py(26) + 2, engine_stats_line(info), gfx::kInkDim);
+        const std::string hidden = page_key_hides(ui);
+        widgets::small_text(c, ui, px(kLabelCol), py(27) + 2,
+                            hidden.empty() ? std::string("MIDI INPUTS, TIMING AND LATENCY REPORT: PAGE 3.  MIDI OUTPUT: M8.")
+                                           : "PAGE KEY HIDES " + hidden,
+                            hidden.empty() ? gfx::kInkDim : gfx::kInkWarn);
+    }
+
+    template <std::size_t N>
+    void draw_audio_options(gfx::Canvas& c, const Ui& ui, int f, int label_col, int value_col, int row,
+                            std::string_view name, const std::array<std::string_view, N>& options, bool fields) const {
+        widgets::label(c, ui, label_col, row, name, kEqCols);
+        widgets::option_group(c, ui, value_col, row, std::span<const std::string_view>(options.data(), N),
+                              audio_option_value(ui.app(), f), fields && focus_ == f, zone_of(f));
+    }
+
     void change(Ui& ui, int delta) {
         if (focus_ == kMonitor) {
             ui.execute("DISPLAY NEXT");
+            return;
+        }
+        if (focus_ == kAudioDevice) {
+            ui.execute("AUDIO NEXT");
+            return;
+        }
+        if (focus_ == kMaster) {
+            const float db = std::clamp(ui.app().audio().master_db + static_cast<float>(delta), -60.0f, 6.0f);
+            char buf[32];
+            std::snprintf(buf, sizeof buf, "MASTER %.1f", static_cast<double>(db));
+            ui.execute(buf);
+            return;
+        }
+        if (is_setting(focus_)) {
+            set_audio_option(ui, focus_, audio_option_value(ui.app(), focus_) + (delta > 0 ? 1 : -1));
             return;
         }
         DisplayProfile p = ui.app().profile();

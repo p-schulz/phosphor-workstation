@@ -51,6 +51,7 @@ struct InputEvent {
     int mods = 0;
     char ch = 0; // Key::Char label, or the typed ASCII character for Type::Text
     bool repeat = false;
+    bool release = false; // Type::Key only: key went up (used by KEYJAZZ; other handlers ignore it)
 };
 
 struct InputState {

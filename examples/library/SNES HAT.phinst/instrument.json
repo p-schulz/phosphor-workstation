@@ -1,0 +1,63 @@
+{
+  "app": "PHOSPHOR",
+  "instrument": {
+    "amp": {
+      "attackMs": 2.0,
+      "decayMs": 300.0,
+      "releaseMs": 200.0,
+      "sustain": 1.0
+    },
+    "brr": {
+      "file": "brr/01.brr",
+      "loopBlock": -1,
+      "sourceRate": 16000
+    },
+    "cutoffHz": 8000.0,
+    "envAmount": 0.0,
+    "filter": "OFF",
+    "filterEnv": {
+      "attackMs": 2.0,
+      "decayMs": 300.0,
+      "releaseMs": 200.0,
+      "sustain": 0.0
+    },
+    "fineCents": 0.0,
+    "interp": "HERMITE",
+    "keyTrack": 0.0,
+    "kind": "SNES",
+    "loop": "OFF",
+    "loopEnd": 0,
+    "loopStart": 0,
+    "name": "SNES HAT",
+    "pan": 0.0,
+    "resonance": 0.0,
+    "rootNote": 60,
+    "sample": "samples/01_SNES_HAT.wav",
+    "sampleName": "SNES HAT",
+    "sampleRate": 32000,
+    "snes": {
+      "adsr": true,
+      "attack": 15,
+      "autoAlign": true,
+      "decay": 7,
+      "echo": true,
+      "gain": 127,
+      "gainMode": "DIRECT",
+      "noise": false,
+      "pitchMod": false,
+      "previewOriginal": false,
+      "rootNote": 60,
+      "sourceRate": 16000,
+      "sustainLevel": 7,
+      "sustainRate": 0,
+      "volL": 100,
+      "volR": 100
+    },
+    "source": "",
+    "velToAmp": 0.5,
+    "velToCutoff": 0.0,
+    "volumeDb": 0.0
+  },
+  "schemaVersion": 5,
+  "type": "instrument"
+}

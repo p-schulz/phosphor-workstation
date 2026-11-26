@@ -1,6 +1,9 @@
 #include <catch2/catch_test_macros.hpp>
 
+#include <string>
+
 #include "gfx/canvas.h"
+#include "gfx/palette.h"
 
 using phos::gfx::Canvas;
 using phos::gfx::Rect;
@@ -69,4 +72,32 @@ TEST_CASE("stipple fills half the pixels", "[canvas]") {
     Canvas c(8, 8);
     c.stipple_rect(Rect{0, 0, 8, 8}, 9);
     CHECK(count(c, 9) == 32);
+}
+
+TEST_CASE("Role inks: single-hue themes reuse their base inks; COLOR gives each its own hue", "[gfx][palette]") {
+    using namespace phos::gfx;
+    for (const Theme& t : all_themes()) {
+        INFO(std::string(t.name));
+        CHECK(find_theme(t.name) == &t);
+        if (t.name == "COLOR") {
+            continue;
+        }
+        CHECK(t.colors[kInkTab] == t.colors[kInkBright]);
+        CHECK(t.colors[kInkSelect] == t.colors[kInkBright]);
+        CHECK(t.colors[kInkCursor] == t.colors[kInkBright]);
+        CHECK(t.colors[kInkPlay] == t.colors[kInkBright]);
+        CHECK(t.colors[kInkLevelLow] == t.colors[kInkText]);
+        CHECK(t.colors[kInkLevelMid] == t.colors[kInkText]);
+        CHECK(t.colors[kInkLevelHigh] == t.colors[kInkText]);
+        CHECK(t.colors[kInkLabel] == t.colors[kInkText]);
+    }
+    const Theme* c = find_theme("color");
+    REQUIRE(c);
+    for (int a = kInkTab; a < kPaletteSize; ++a) {
+        for (int b = a + 1; b < kPaletteSize; ++b) {
+            CHECK_FALSE(c->colors[static_cast<std::size_t>(a)] == c->colors[static_cast<std::size_t>(b)]);
+        }
+    }
+    const Rgb text = c->colors[kInkText];
+    CHECK((text.r > 0xE0 && text.g > 0xE0 && text.b > 0xE0)); // white text and lines
 }
