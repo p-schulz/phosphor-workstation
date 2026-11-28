@@ -7,6 +7,9 @@
 #include <mach/mach.h>
 #include <mach/mach_time.h>
 #include <mach/thread_policy.h>
+#elif defined(__linux__)
+#include <pthread.h>
+#include <sched.h>
 #endif
 
 namespace phos::platform {
@@ -31,6 +34,12 @@ void raise_priority() {
     p.preemptible = 1;
     thread_policy_set(mach_thread_self(), THREAD_TIME_CONSTRAINT_POLICY, reinterpret_cast<thread_policy_t>(&p),
                       THREAD_TIME_CONSTRAINT_POLICY_COUNT);
+#elif defined(__linux__)
+    // SCHED_FIFO just below a typical audio thread. Needs the rtprio limit (tools/setup-linux.sh sets
+    // it for the audio group); without it the call fails and the thread keeps normal priority.
+    sched_param sp{};
+    sp.sched_priority = std::max(1, sched_get_priority_max(SCHED_FIFO) / 2 - 1);
+    pthread_setschedparam(pthread_self(), SCHED_FIFO, &sp);
 #endif
 }
 

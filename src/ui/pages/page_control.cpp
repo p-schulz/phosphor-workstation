@@ -240,7 +240,7 @@ private:
                 return;
             }
             const auto frames = static_cast<long>(inst.sample->frames);
-            const auto delta = static_cast<long>(std::lround((big ? f.big : f.step) * inst.sample->sample_rate)) * dir;
+            const auto delta = static_cast<long>(std::lround((big ? f.big : f.step) * static_cast<float>(inst.sample->sample_rate))) * dir;
             if (focus_ == kLoopStart) {
                 p.loop_start = static_cast<std::size_t>(std::clamp(static_cast<long>(p.loop_start) + delta, 0L,
                                                                    static_cast<long>(p.loop_end) - 2));

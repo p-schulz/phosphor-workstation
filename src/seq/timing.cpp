@@ -25,7 +25,7 @@ std::uint32_t swing_tick(std::uint32_t tick, int grid_ticks, int percent) {
 std::string bar_beat_tick(std::uint64_t tick, int sig_num, int sig_den) {
     const auto beat = static_cast<std::uint64_t>(beat_ticks(sig_den));
     const auto bar = static_cast<std::uint64_t>(sig_num) * beat;
-    char buf[24];
+    char buf[72];
     std::snprintf(buf, sizeof buf, "%03llu:%llu:%03llu", static_cast<unsigned long long>(tick / bar + 1),
                   static_cast<unsigned long long>(tick % bar / beat + 1), static_cast<unsigned long long>(tick % beat));
     return buf;

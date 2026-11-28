@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdio>
+#include <cstdlib>
+#include <string>
 
 #include <glad/gl.h>
 #define GLFW_INCLUDE_NONE
@@ -129,6 +131,17 @@ Window::~Window() {
 
 bool Window::create(const char* title, int width, int height, std::string* error) {
     glfwSetErrorCallback(glfw_error);
+#if defined(__linux__)
+    // PHOS_GLFW_PLATFORM=x11 or wayland picks the window system (default: GLFW's choice, Wayland first).
+    if (const char* plat = std::getenv("PHOS_GLFW_PLATFORM")) {
+        const std::string p(plat);
+        if (p == "x11") {
+            glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
+        } else if (p == "wayland") {
+            glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_WAYLAND);
+        }
+    }
+#endif
     if (!glfwInit()) {
         *error = "failed to initialise GLFW";
         return false;
@@ -148,7 +161,12 @@ bool Window::create(const char* title, int width, int height, std::string* error
     windowed_h_ = height;
     window_ = glfwCreateWindow(width, height, title, nullptr, nullptr);
     if (!window_) {
-        *error = "failed to create window (OpenGL 3.3 core required)";
+        *error = "failed to create window (OpenGL 3.3 core required";
+#if defined(__linux__)
+        // Raspberry Pi 4 / 5: Mesa's V3D driver offers GL 3.1 until the GLES path (M9) exists.
+        *error += "; on a Raspberry Pi start with tools/run-linux.sh, which sets MESA_GL_VERSION_OVERRIDE=3.3";
+#endif
+        *error += ")";
         return false;
     }
     glfwMakeContextCurrent(window_);
@@ -313,6 +331,19 @@ int Window::current_monitor() const {
 }
 
 bool Window::is_fullscreen() const { return glfwGetWindowMonitor(window_) != nullptr; }
+
+bool Window::set_aspect(double aspect) {
+    if (!window_ || is_fullscreen() || aspect <= 0.0) {
+        return false;
+    }
+    int w = 0;
+    int h = 0;
+    glfwGetWindowSize(window_, &w, &h);
+    windowed_w_ = std::max(320, static_cast<int>(std::lround(h * aspect)));
+    windowed_h_ = h;
+    glfwSetWindowSize(window_, windowed_w_, windowed_h_);
+    return true;
+}
 
 void Window::place(int index, bool fullscreen) {
     const auto list = monitors();

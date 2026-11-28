@@ -47,6 +47,8 @@ public:
     bool is_fullscreen() const;
     // Moves the window to monitor `index`: borderless fullscreen, or a centered window.
     void place(int index, bool fullscreen);
+    // Windowed only: keeps the height and sets the width to height * aspect. False in fullscreen.
+    bool set_aspect(double aspect);
 
     // True once after monitors were connected or disconnected.
     bool take_monitors_changed();

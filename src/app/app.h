@@ -141,7 +141,8 @@ private:
     ui::DisplayStatus display_;
     ui::StatusInfo status_;
     gfx::Canvas canvas_;
-    gfx::Canvas screen_;
+    gfx::Canvas screen_; // canvas_ plus the side strips (side_w_ canvas pixels each side)
+    int side_w_ = 0;
     double time_s_ = 0.0;
     std::deque<std::string> exec_;
     int wait_frames_ = 0;

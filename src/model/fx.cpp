@@ -10,6 +10,7 @@ namespace {
 constexpr const char* kChorusModes[] = {"I", "II", "I+II"};
 constexpr const char* kOffOn[] = {"OFF", "ON"};
 constexpr const char* kDelayTimes[] = {"1/16", "1/8T", "1/8", "1/8D", "1/4T", "1/4", "1/4D", "1/2"};
+constexpr const char* kGateModes[] = {"GATED", "NONLIN", "REVERSE"};
 constexpr const char* kTracks[] = {"1", "2", "3", "4", "5", "6", "7", "8", "A", "B", "C", "D", "E", "F", "G", "H"};
 
 using P = FxParamInfo;
@@ -68,9 +69,16 @@ constexpr std::array<std::array<P, kFxParams>, kFxTypes> kParams = {{
         {"THRESH", -60, 0, -30, 1, "%.0f"},
         kNone,
     }},
+    {{
+        {"MODE", 0, 2, 0, 1, "%.0f", kGateModes},
+        {"TIME", 80, 800, 300, 10, "%.0f"},
+        {"THRESH", -60, 0, -24, 1, "%.0f"},
+        {"TONE", 1000, 20000, 9000, 250, "%.0f"},
+        {"MIX", 0, 1, 0.4f, 0.05f},
+    }},
 }};
 
-constexpr const char* kNames[] = {"OFF", "CHORUS", "TAPE", "CRUSH", "LOFI", "PLATE", "DELAY", "DUCK"};
+constexpr const char* kNames[] = {"OFF", "CHORUS", "TAPE", "CRUSH", "LOFI", "PLATE", "DELAY", "DUCK", "GATE"};
 
 } // namespace
 

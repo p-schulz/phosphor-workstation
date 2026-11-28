@@ -33,6 +33,8 @@ std::unique_ptr<FxUnit> make_fx_unit(model::FxType type, float sample_rate) {
         return std::make_unique<DelayFx>(sample_rate);
     case model::FxType::Duck:
         return std::make_unique<DuckFx>(sample_rate);
+    case model::FxType::Gate:
+        return std::make_unique<GateFx>(sample_rate);
     }
     return nullptr;
 }

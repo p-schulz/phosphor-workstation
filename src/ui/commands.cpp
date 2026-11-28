@@ -10,7 +10,7 @@ namespace phos::ui {
 
 namespace {
 
-constexpr std::array<VerbInfo, 57> kVerbs = {{
+constexpr std::array<VerbInfo, 58> kVerbs = {{
     {"P", "P<id>", "GO TO PAGE (P1, PR, PS ...)", ""},
     {"HELP", "HELP", "HELP FOR THE CURRENT PAGE", ""},
     {"PLAY", "PLAY", "START / STOP PLAYBACK (SPACE)", ""},
@@ -41,11 +41,12 @@ constexpr std::array<VerbInfo, 57> kVerbs = {{
     {"KEYJAZZ", "KEYJAZZ ON|OFF|OCTAVE <N>", "COMPUTER KEYBOARD PLAYS NOTES", ""},
     {"TONE", "TONE <NOTE>|OFF", "TEST TONE, E.G. TONE A4 OR TONE 69", ""},
     {"CLICK", "CLICK", "TEST CLICK", ""},
-    {"THEME", "THEME GREEN|AMBER|GREY|VAPOR|CYAN|COLOR", "SET THE PHOSPHOR COLOUR", ""},
+    {"THEME", "THEME <NAME> (THEME ALONE LISTS THEM)", "SET THE SCREEN COLOURS", ""},
     {"PAGEKEY", "PAGEKEY OFF|CTRL|ALT|CMD", "MODIFIER + PAGE ID JUMPS TO A PAGE", ""},
     {"FOLLOW", "FOLLOW [ON|OFF]", "PAGE R FOLLOWS THE PLAYHEAD WHILE PLAYING", ""},
-    {"DISPLAY", "DISPLAY NEXT|FULL|WINDOW|TOGGLE", "MOVE / FULLSCREEN THE DISPLAY", ""},
+    {"DISPLAY", "DISPLAY NEXT|FULL|WINDOW|TOGGLE|ASPECT", "MOVE / FULLSCREEN / SHAPE (ASPECT 16:9)", ""},
     {"SCALE", "SCALE FIT|INTEGER|STRETCH", "CANVAS SCALING MODE", ""},
+    {"SIDEKEYS", "SIDEKEYS OFF|AUTO|ON", "TOUCH KEYS BESIDE A 4:3 SCREEN", ""},
     {"CRT", "CRT ON|OFF", "CRT POST PASS ON / OFF", ""},
     {"TESTCARD", "TESTCARD", "SHOW THE GEOMETRY TEST CARD", ""},
     {"SNAP", "SNAP [FILE.PNG]", "SAVE THE CANVAS AS PNG", ""},
@@ -70,7 +71,8 @@ constexpr std::array<VerbInfo, 57> kVerbs = {{
     {"PATTERN", "PATTERN <1-64>|NEW|COPY", "PATTERN OF THE CURRENT SECTION", ""},
 }};
 
-constexpr std::array<std::string_view, 4> kDisplayArgs = {"NEXT", "FULL", "WINDOW", "TOGGLE"};
+constexpr std::array<std::string_view, 5> kDisplayArgs = {"NEXT", "FULL", "WINDOW", "TOGGLE", "ASPECT"};
+constexpr std::array<std::string_view, 3> kSideKeysArgs = {"OFF", "AUTO", "ON"};
 constexpr std::array<std::string_view, 3> kScaleArgs = {"FIT", "INTEGER", "STRETCH"};
 constexpr std::array<std::string_view, 2> kOnOff = {"ON", "OFF"};
 constexpr std::array<std::string_view, 6> kAudioArgs = {"ON", "OFF", "RESTART", "NEXT", "BUFFER", "RATE"};
@@ -188,6 +190,8 @@ std::string complete_command(std::string_view line) {
         done = complete_word(partial, kDisplayArgs);
     } else if (verb == "SCALE") {
         done = complete_word(partial, kScaleArgs);
+    } else if (verb == "SIDEKEYS") {
+        done = complete_word(partial, kSideKeysArgs);
     } else if (verb == "CRT") {
         done = complete_word(partial, kOnOff);
     } else if (verb == "AUDIO") {

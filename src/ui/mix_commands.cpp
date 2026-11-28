@@ -106,7 +106,7 @@ std::optional<std::string> run_mix_command(Ui& ui, const Command& cmd) {
         model::FxSlot* slot = cmd.args.empty() ? nullptr : fx_slot(song, cmd.args[0], label);
         model::FxType type{};
         if (!slot || cmd.args.size() < 2 || !model::fx_from_name(to_upper(cmd.args[1]), type)) {
-            return err("FX 1|2|M1|M2|RA|RB OFF|CHORUS|TAPE|CRUSH|LOFI|PLATE|DELAY|DUCK [VALUES]");
+            return err("FX 1|2|M1|M2|RA|RB OFF|CHORUS|TAPE|CRUSH|LOFI|PLATE|DELAY|DUCK|GATE [VALUES]");
         }
         *slot = model::make_fx(type);
         for (std::size_t k = 2; k < cmd.args.size() && k - 2 < slot->p.size(); ++k) {

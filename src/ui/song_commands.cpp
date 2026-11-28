@@ -209,7 +209,7 @@ std::optional<std::string> run_song_command(Ui& ui, const Command& cmd, std::vec
     }
     if (cmd.verb == "PATTERN") {
         const int count = static_cast<int>(song.patterns.size());
-        char name[16];
+        char name[24];
         if (cmd.arg_is(0, "NEW") || cmd.arg_is(0, "COPY")) {
             if (count >= model::kMaxPatterns) {
                 return err("PATTERN: 64 PATTERNS AT MOST");

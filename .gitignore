@@ -9,3 +9,6 @@
 *.user
 # Local scratch renders
 /snaps/
+# Autosaves inside project bundles (written by the app, never part of a project)
+project.autosave.json
+autosave/

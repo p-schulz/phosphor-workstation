@@ -54,6 +54,6 @@
     "velToCutoff": 0.0,
     "volumeDb": -2.4000000953674316
   },
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "type": "instrument"
 }

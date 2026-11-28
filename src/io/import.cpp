@@ -201,8 +201,8 @@ ImportResult import_sample(const std::filesystem::path& path, const ImportOption
     }
     if (smpl && smpl->has_loop) {
         res.params.loop = smpl->ping_pong ? model::LoopMode::PingPong : model::LoopMode::Forward;
-        res.params.loop_start = std::min(res.sample->frames, static_cast<std::size_t>(std::llround(smpl->loop_start * ratio)));
-        res.params.loop_end = std::min(res.sample->frames, static_cast<std::size_t>(std::llround(smpl->loop_end * ratio)));
+        res.params.loop_start = std::min(res.sample->frames, static_cast<std::size_t>(std::llround(static_cast<double>(smpl->loop_start) * ratio)));
+        res.params.loop_end = std::min(res.sample->frames, static_cast<std::size_t>(std::llround(static_cast<double>(smpl->loop_end) * ratio)));
     } else {
         res.params.loop_start = 0;
         res.params.loop_end = res.sample->frames;

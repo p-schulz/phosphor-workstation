@@ -24,7 +24,7 @@ struct VaporMap {
 };
 
 VaporMap vapor_map(int amount) {
-    const float v = std::clamp(amount, 0, model::kVaporMax) / static_cast<float>(model::kVaporMax);
+    const float v = static_cast<float>(std::clamp(amount, 0, model::kVaporMax)) / static_cast<float>(model::kVaporMax);
     VaporMap m;
     m.plate.type = model::FxType::Plate;
     m.plate.p = {0.5f + 0.45f * v, 0.5f, 30.0f, 1.0f, 0.4f * v};

@@ -88,6 +88,9 @@ bool migrate_project(std::string& text, std::string* error) {
     if (v == 4) { // 4 -> 5: tracks play INTERNAL on channel = track number, no program, no automation
         v = 5;
     }
+    if (v == 5) { // 5 -> 6: effect type GATE added; v5 files cannot contain it, nothing to change
+        v = 6;
+    }
     j["schemaVersion"] = v;
     text = j.dump(2) + "\n";
     return true;

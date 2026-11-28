@@ -8,8 +8,8 @@
 // stores it. Values are in display units (Hz, ms, bits, 0..1 amounts); the engine reads them as is.
 namespace phos::model {
 
-enum class FxType : std::uint8_t { Off, Chorus, Tape, Crush, Lofi, Plate, Delay, Duck };
-inline constexpr int kFxTypes = 8;
+enum class FxType : std::uint8_t { Off, Chorus, Tape, Crush, Lofi, Plate, Delay, Duck, Gate };
+inline constexpr int kFxTypes = 9;
 inline constexpr int kFxParams = 5;
 
 const char* fx_name(FxType t); // "OFF", "CHORUS", ...

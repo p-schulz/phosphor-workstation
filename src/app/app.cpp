@@ -1,5 +1,6 @@
 #include "app/app.h"
 
+#include <cstdlib>
 #include <algorithm>
 #include <chrono>
 #include <cstdio>
@@ -166,7 +167,15 @@ void App::refresh_display() {
     vp.mode = profile_.scale;
     vp.pixel_aspect = display_.pixel_aspect;
     vp.overscan = profile_.overscan;
-    display_.viewport = gfx::compute_viewport(vp);
+    const gfx::ScreenLayout layout = gfx::compute_screen_layout(vp, profile_.side_keys);
+    display_.viewport = layout.viewport;
+    side_w_ = layout.side_w;
+    if (screen_.width() != ui::kCanvasW + 2 * side_w_) {
+        screen_ = gfx::Canvas(ui::kCanvasW + 2 * side_w_, ui::kCanvasH);
+    }
+    if (ui_) {
+        ui_->set_side_width(side_w_);
+    }
 }
 
 void App::handle_monitor_changes() {
@@ -251,8 +260,25 @@ std::string App::display_command(const ui::Command& command) {
         p.fullscreen = false;
     } else if (command.arg_is(0, "TOGGLE")) {
         p.fullscreen = !p.fullscreen;
+    } else if (command.arg_is(0, "ASPECT")) {
+        // DISPLAY ASPECT 16:9 (or 1.78): reshape the window, e.g. to try the side keys.
+        double aspect = 0.0;
+        if (command.args.size() > 1) {
+            const std::string& a = command.args[1];
+            const auto colon = a.find(':');
+            aspect = colon == std::string::npos ? std::atof(a.c_str())
+                                                : std::atof(a.substr(0, colon).c_str()) /
+                                                      std::max(1e-9, std::atof(a.substr(colon + 1).c_str()));
+        }
+        if (aspect < 0.5 || aspect > 4.0) {
+            return "ERROR: DISPLAY ASPECT W:H (E.G. 16:9, 16:10, 4:3)";
+        }
+        if (!window_.set_aspect(aspect)) {
+            return "ERROR: DISPLAY ASPECT NEEDS A WINDOW (DISPLAY WINDOW)";
+        }
+        return "DISPLAY: WINDOW ASPECT " + to_upper(command.args[1]);
     } else {
-        return "ERROR: DISPLAY NEXT|FULL|WINDOW|TOGGLE";
+        return "ERROR: DISPLAY NEXT|FULL|WINDOW|TOGGLE|ASPECT W:H";
     }
     set_profile(p);
     return p.fullscreen ? "DISPLAY: FULLSCREEN" : "DISPLAY: WINDOW";
@@ -329,8 +355,9 @@ int App::run() {
     double last = window_.time_s();
     while (!window_.should_close()) {
         input.begin_frame();
-        window_.poll(input, display_.viewport, ui::kCanvasW, ui::kCanvasH,
+        window_.poll(input, display_.viewport, screen_.width(), ui::kCanvasH,
                      profile_.crt.enabled ? profile_.crt.curvature : 0.0f);
+        input.pen_x -= static_cast<float>(side_w_); // canvas coordinates; the strips lie outside 0..kCanvasW
         const double now = window_.time_s();
         const double dt = now - last;
         last = now;
@@ -349,8 +376,10 @@ int App::run() {
         refresh_display(); // commands may have moved the window or changed the profile
 
         ui_->draw(canvas_);
-        screen_.copy_from(canvas_);
-        ui_->draw_pen(screen_);
+        screen_.clear(gfx::kInkBg);
+        screen_.copy_from(canvas_, side_w_, 0);
+        ui_->draw_side_keys(screen_);
+        ui_->draw_pen(screen_, side_w_);
         crt_.render(screen_, ui_->theme(), profile_.crt, display_.viewport, display_.fb_w, display_.fb_h, dt);
 
         if (!pending_shot_.empty()) {

@@ -36,6 +36,31 @@ std::optional<ScaleMode> parse_scale_mode(std::string_view name) {
     return std::nullopt;
 }
 
+std::string_view side_keys_name(SideKeys mode) {
+    switch (mode) {
+    case SideKeys::Off:
+        return "OFF";
+    case SideKeys::Auto:
+        return "AUTO";
+    case SideKeys::On:
+        return "ON";
+    }
+    return "AUTO";
+}
+
+std::optional<SideKeys> parse_side_keys(std::string_view name) {
+    std::string upper(name);
+    for (char& c : upper) {
+        c = static_cast<char>(std::toupper(static_cast<unsigned char>(c)));
+    }
+    for (const SideKeys m : {SideKeys::Off, SideKeys::Auto, SideKeys::On}) {
+        if (upper == side_keys_name(m)) {
+            return m;
+        }
+    }
+    return std::nullopt;
+}
+
 namespace {
 
 Rect fit(const Rect& avail, double aspect) {
@@ -110,6 +135,28 @@ void crt_distort(float curvature, float& u, float& v) {
     const float s = 1.0f + k * r2;
     u = 0.5f + cx * s;
     v = 0.5f + cy * s;
+}
+
+ScreenLayout compute_screen_layout(const ViewportParams& p, SideKeys mode) {
+    const Rect base = compute_viewport(p);
+    if (mode == SideKeys::Off || base.w <= 0 || p.canvas_w <= 0) {
+        return {base, 0};
+    }
+    // Room beside the canvas inside the overscan-safe area, in canvas pixels.
+    const double sx = static_cast<double>(base.w) / p.canvas_w;
+    const double left = base.x - p.fb_w * static_cast<double>(p.overscan.left);
+    const double right = p.fb_w * (1.0 - static_cast<double>(p.overscan.right)) - (base.x + base.w);
+    const int side = std::min(kSideMaxW, static_cast<int>(std::floor(std::min(left, right) / sx)));
+    if (side < kSideMinW) {
+        if (mode == SideKeys::Auto) {
+            return {base, 0};
+        }
+        ViewportParams wide = p; // ON: shrink the canvas so the minimum strips fit
+        wide.canvas_w = p.canvas_w + 2 * kSideMinW;
+        return {compute_viewport(wide), kSideMinW};
+    }
+    const int dx = static_cast<int>(std::lround(side * sx));
+    return {Rect{base.x - dx, base.y, base.w + 2 * dx, base.h}, side};
 }
 
 std::optional<CanvasPos> framebuffer_to_canvas(const Rect& viewport, int canvas_w, int canvas_h, float curvature,

@@ -28,10 +28,18 @@
                 "CMAKE_CXX_COMPILER": "cl"
             }
         },
+        {
+            "name": "linux-base",
+            "hidden": true,
+            "inherits": "base",
+            "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Linux" }
+        },
         { "name": "mac-debug", "inherits": "mac-base", "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" } },
         { "name": "mac-release", "inherits": "mac-base", "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" } },
         { "name": "win-debug", "inherits": "win-base", "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" } },
         { "name": "win-release", "inherits": "win-base", "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" } },
+        { "name": "linux-debug", "inherits": "linux-base", "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" } },
+        { "name": "linux-release", "inherits": "linux-base", "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" } },
         {
             "name": "ci-mac",
             "inherits": "mac-debug",
@@ -41,6 +49,11 @@
             "name": "ci-win",
             "inherits": "win-debug",
             "cacheVariables": { "PHOS_WERROR": "ON" }
+        },
+        {
+            "name": "ci-linux",
+            "inherits": "linux-debug",
+            "cacheVariables": { "PHOS_WERROR": "ON" }
         }
     ],
     "buildPresets": [
@@ -49,7 +62,10 @@
         { "name": "win-debug", "configurePreset": "win-debug" },
         { "name": "win-release", "configurePreset": "win-release" },
         { "name": "ci-mac", "configurePreset": "ci-mac" },
-        { "name": "ci-win", "configurePreset": "ci-win" }
+        { "name": "ci-win", "configurePreset": "ci-win" },
+        { "name": "linux-debug", "configurePreset": "linux-debug" },
+        { "name": "linux-release", "configurePreset": "linux-release" },
+        { "name": "ci-linux", "configurePreset": "ci-linux" }
     ],
     "testPresets": [
         { "name": "mac-debug", "configurePreset": "mac-debug", "output": { "outputOnFailure": true } },
@@ -57,6 +73,9 @@
         { "name": "win-debug", "configurePreset": "win-debug", "output": { "outputOnFailure": true } },
         { "name": "win-release", "configurePreset": "win-release", "output": { "outputOnFailure": true } },
         { "name": "ci-mac", "configurePreset": "ci-mac", "output": { "outputOnFailure": true } },
-        { "name": "ci-win", "configurePreset": "ci-win", "output": { "outputOnFailure": true } }
+        { "name": "ci-win", "configurePreset": "ci-win", "output": { "outputOnFailure": true } },
+        { "name": "linux-debug", "configurePreset": "linux-debug", "output": { "outputOnFailure": true } },
+        { "name": "linux-release", "configurePreset": "linux-release", "output": { "outputOnFailure": true } },
+        { "name": "ci-linux", "configurePreset": "ci-linux", "output": { "outputOnFailure": true } }
     ]
 }

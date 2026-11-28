@@ -16,6 +16,16 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 option(PHOS_WERROR "Treat warnings in own code as errors" OFF)
 option(PHOS_BUILD_TESTS "Build phosphor_tests" ON)
 option(PHOS_BUILD_APP "Build the windowed app (needs GLFW + OpenGL)" ON)
+option(PHOS_NATIVE "Tune for the CPU of the build machine (builds on the device, e.g. a Raspberry Pi)" OFF)
+
+# Set before the dependencies so they are tuned too. Not for builds that run on other machines.
+if(PHOS_NATIVE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang" AND NOT APPLE)
+    if(CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64|arm64|armv")
+        add_compile_options(-mcpu=native)
+    else()
+        add_compile_options(-march=native)
+    endif()
+endif()
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 include(Warnings)
@@ -35,6 +45,7 @@ add_library(phosphor_core STATIC
     src/dsp/fx_basic.cpp
     src/dsp/fx_mod.cpp
     src/dsp/plate.cpp
+    src/dsp/gate_reverb.cpp
     src/dsp/limiter.cpp
     src/dsp/stretch.cpp
     src/dsp/yin.cpp
@@ -58,6 +69,7 @@ add_library(phosphor_core STATIC
     src/engine/wavetables.cpp
     src/model/song.cpp
     src/model/wavetable.cpp
+    src/model/wave_slices.cpp
     src/seq/compiled_song.cpp
     src/seq/sequencer.cpp
     src/seq/timing.cpp
@@ -78,7 +90,7 @@ add_library(phosphor_core STATIC
 target_include_directories(phosphor_core PUBLIC src)
 target_compile_definitions(phosphor_core PUBLIC
     PHOS_VERSION_STRING="${PROJECT_VERSION}")
-target_link_libraries(phosphor_core PUBLIC nlohmann_json::nlohmann_json PRIVATE miniaudio r8brain signalsmith-stretch)
+target_link_libraries(phosphor_core PUBLIC nlohmann_json::nlohmann_json Threads::Threads PRIVATE miniaudio r8brain signalsmith-stretch)
 # The STRETCH cache must render fast in Debug too (PLAN.md M7 AC: 8-bar loop < 2 s).
 if(NOT MSVC)
     set_source_files_properties(src/dsp/stretch.cpp PROPERTIES COMPILE_OPTIONS "-O2")
@@ -106,11 +118,14 @@ add_library(phosphor_ui STATIC
     src/ui/settings.cpp
     src/ui/song_commands.cpp
     src/ui/ui.cpp
+    src/ui/ui_commands.cpp
+    src/ui/side_keys.cpp
     src/ui/widgets.cpp
     src/ui/pages/page_chip.cpp
     src/ui/pages/page_chip_gb.cpp
     src/ui/pages/page_chip_snes.cpp
     src/ui/pages/page_composer.cpp
+    src/ui/pages/page_composer_draw.cpp
     src/ui/pages/page_control.cpp
     src/ui/pages/page_disk.cpp
     src/ui/pages/page_harmonics.cpp
@@ -129,6 +144,7 @@ add_library(phosphor_ui STATIC
     src/ui/pages/page_vkeys.cpp
     src/ui/pages/page_wavedraw.cpp
     src/ui/pages/page_waveform.cpp
+    src/ui/pages/waterfall.cpp
 )
 target_include_directories(phosphor_ui PUBLIC src)
 target_link_libraries(phosphor_ui PUBLIC phosphor_core PRIVATE stb)

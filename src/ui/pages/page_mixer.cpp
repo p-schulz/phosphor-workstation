@@ -8,6 +8,7 @@
 #include <cmath>
 #include <cstdio>
 #include <string>
+#include <utility>
 
 #include "core/text.h"
 #include "ui/layout.h"
@@ -44,7 +45,7 @@ std::string pan_text(float pan) {
     if (p == 0) {
         return "  C";
     }
-    char buf[8];
+    char buf[16];
     std::snprintf(buf, sizeof buf, "%c%2d", p < 0 ? 'L' : 'R', std::abs(p));
     return buf;
 }
@@ -334,7 +335,7 @@ private:
         title += model::fx_name(slot->type);
         widgets::frame(c, ui, gfx::Rect{2, py(25) + 6, kCanvasW - 4, py(28) - 2 - (py(25) + 6)}, title);
         if (slot->type == model::FxType::Off) {
-            widgets::small_text(c, ui, px(2), py(26) + 4, "OFF. +/- ON THE STRIP PICKS AN EFFECT (CHORUS TAPE CRUSH LOFI PLATE DELAY DUCK)",
+            widgets::small_text(c, ui, px(2), py(26) + 4, "OFF. +/- ON THE STRIP PICKS ONE: CHORUS TAPE CRUSH LOFI PLATE DELAY DUCK GATE",
                                 gfx::kInkDim);
             return;
         }

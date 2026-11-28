@@ -138,4 +138,48 @@ private:
     Ramp mix_;
 };
 
+// GATE: the 1980s gated reverb (dsp/gate_reverb.cpp). GATED: a dense room cut by a noise gate keyed
+// from the dry signal; NONLIN / REVERSE: a dense burst of reflections with a flat or rising
+// envelope that stops dead after TIME.
+class GateFx final : public FxUnit {
+public:
+    explicit GateFx(float rate);
+    void process(float* l, float* r, std::size_t frames, const FxContext& ctx) noexcept override;
+    void reset() noexcept override;
+    float gate() const { return gate_; } // GATED: current gate gain (tests)
+
+    static constexpr int kTaps = 64;
+    static constexpr int kLines = 4;
+
+private:
+    struct Allpass {
+        DelayLine line;
+        float length = 1.0f;
+        float g = 0.7f;
+        float process(float x) noexcept {
+            const float delayed = line.read(length - 1.0f);
+            const float w = x - g * delayed;
+            line.push(w);
+            return delayed + g * w;
+        }
+    };
+    std::array<Allpass, 4> diffuse_{};
+    DelayLine cloud_; // the diffused input, read by the tap cloud
+    std::array<float, kTaps> pos_l_{};  // tap times as fractions of TIME
+    std::array<float, kTaps> pos_r_{};
+    std::array<float, kTaps> sign_l_{};
+    std::array<float, kTaps> sign_r_{};
+    std::array<float, kTaps> gain_l_{}; // per block: sign x envelope x normalisation
+    std::array<float, kTaps> gain_r_{};
+    std::array<DelayLine, kLines> room_{}; // feedback delay network (GATED)
+    std::array<float, kLines> room_len_{};
+    std::array<float, kLines> room_lp_{};
+    float tone_ = 0.0f;
+    float time_frames_ = -1.0f;
+    float env_ = 0.0f;
+    float gate_ = 0.0f;
+    float hold_ = 0.0f;
+    Ramp mix_;
+};
+
 } // namespace phos::dsp

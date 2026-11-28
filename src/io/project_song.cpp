@@ -80,7 +80,7 @@ model::SampleRef read_sample(const std::filesystem::path& bundle, const std::str
 }
 
 std::string loop_file(int slot, const model::LoopSlot& loop, const std::string& audio_dir) {
-    char prefix[16];
+    char prefix[24];
     std::snprintf(prefix, sizeof prefix, "loops/%02d_", slot + 1);
     return audio_dir + prefix + sanitize(loop.sample ? loop.sample->name : loop.name) + ".wav";
 }

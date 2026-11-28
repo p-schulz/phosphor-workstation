@@ -10,7 +10,7 @@ on a small 4:3 monitor (a e s t h e t i c).
 
 ## Build
 
-Requirements: CMake ≥ 3.24, Ninja, a C++20 compiler (Apple clang on macOS 13+, MSVC 2022 on Windows), network
+Requirements: CMake ≥ 3.25, Ninja, a C++20 compiler (Apple clang on macOS 13+, MSVC 2022 on Windows, GCC 12+ on Linux), network
 access on first configure (dependencies are fetched and pinned, see [docs/deps.md](docs/deps.md)). On macOS simply install ninja using homebrew. 
 
 macOS:
@@ -25,15 +25,32 @@ Windows (from a "x64 Native Tools" prompt, or prefix each command with `tools\wi
     ctest --preset win-debug
     build\win-debug\phosphor.exe
 
+Linux / Raspberry Pi (64-bit; installs packages, builds, tests; details in [docs/linux.md](docs/linux.md)):
+
+    tools/setup-linux.sh
+    tools/run-linux.sh
+
 ## Use
 
 Type commands on the COMMAND line (`HELP`, `P1`, `PS`, `THEME AMBER`, `TESTCARD`, `DISPLAY NEXT` …), use
 F1–F12 for pages, or point and click with the mouse. Settings live in `~/Library/Application Support/Phosphor/`
 or `%APPDATA%\Phosphor\` (`display_profiles.json`, optional `keys.cfg`; examples in `conf/`).
 
+### Side keys
+
+On a screen wider than 4:3 (a 16:9 panel, a MacBook screen, an iPad via Sidecar) the margins beside the
+picture hold large touch / click keys: INDEX, PAGE ◄ / ►, BACK and ESC on the left, ▲ / ▼, + / − (they
+repeat while held) and ENTER on the right. `SIDEKEYS OFF | AUTO | ON` (per monitor, Page S): AUTO shows
+them when the margins are wide enough, ON shrinks the picture to make room. `DISPLAY ASPECT 16:9` reshapes
+the window to try them.
+
+![The side keys beside Page R on a 16:9 screen, COLOR theme](docs/img/phosphor-side-keys.jpg)
+
 ### Themes
 
-`THEME GREEN | AMBER | GREY | VAPOR | CYAN | COLOR`, per monitor on Page S.
+`THEME GREEN | AMBER | GREY | VAPOR | CYAN | COLOR | LCD` (`THEME` alone lists them), per monitor on Page S.
+LCD imitates a 1990s monochrome LCD (dark ink on a yellow-green panel); the CRT pass leaves out bloom and
+the shadow mask for it.
 
 | AMBER | GREY |
 |---|---|
@@ -41,6 +58,8 @@ or `%APPDATA%\Phosphor\` (`display_profiles.json`, optional `keys.cfg`; examples
 
 | **VAPOR** | **CYAN** |
 | ![Page L in the VAPOR theme](docs/img/phosphor-theme-vapor.jpg) | ![Page 4 in the CYAN theme](docs/img/phosphor-theme-cyan.jpg) |
+| **LCD** | |
+| ![Page C in the LCD theme](docs/img/phosphor-theme-lcd.jpg) | |
 
 
 ## Screens
@@ -156,11 +175,15 @@ A SNES voice: BRR encoding, ADSR / GAIN, pitch modulation, noise, the echo with 
 
 ### Page D — Waveform display
 
-The wavetable as a 3D waterfall (the COLOR theme draws it violet to cyan).
+The sound as a 3D waterfall of 128 slices with hidden lines. A wavetable is filled in between its segments the way it plays (the real segments drawn brighter); a sample is cut into 128 time slices, one pitch cycle each (CYCLE) or the slice itself (SPAN). The COLOR theme draws it violet to cyan.
 
 | GREEN | COLOR |
 |---|---|
 | ![Page D — Waveform display, GREEN theme](docs/img/phosphor-page-d.jpg) | ![Page D — Waveform display, COLOR theme](docs/img/phosphor-page-d-color.jpg) |
+
+| Sample, CYCLE (GREEN) | Sample, CYCLE (COLOR) |
+|---|---|
+| ![Page D — a sample in CYCLE view, GREEN theme](docs/img/phosphor-page-d-sample.jpg) | ![Page D — a sample in CYCLE view, COLOR theme](docs/img/phosphor-page-d-sample-color.jpg) |
 
 ### Page K — Virtual keyboard
 
@@ -196,7 +219,7 @@ The pattern grid of 16 tracks, sections with tempo and signature, the song order
 
 ### Page S — Setup
 
-Display profile per monitor (scale, panel, overscan, CRT pass, theme), the page key, and the audio device, rate and buffer.
+Display profile per monitor (scale, side keys, panel, overscan, CRT pass, theme), the page key, and the audio device, rate and buffer.
 
 | GREEN | COLOR |
 |---|---|

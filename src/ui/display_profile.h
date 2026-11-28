@@ -31,6 +31,7 @@ struct DisplayProfile {
     gfx::ScaleMode scale = gfx::ScaleMode::Fit;
     double panel_aspect = 0.0; // physical panel aspect override; 0 = square pixels (AUTO)
     gfx::Insets overscan;
+    gfx::SideKeys side_keys = gfx::SideKeys::Auto; // touch / click strips beside a 4:3 canvas
     std::string theme = "GREEN";
     CrtParams crt;
     friend bool operator==(const DisplayProfile&, const DisplayProfile&) = default;

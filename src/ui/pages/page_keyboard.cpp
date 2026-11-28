@@ -52,7 +52,7 @@ std::string channel_text(int ch) {
     if (ch < 0) {
         return "ALL";
     }
-    char buf[8];
+    char buf[16];
     std::snprintf(buf, sizeof buf, "%3d", ch + 1);
     return buf;
 }

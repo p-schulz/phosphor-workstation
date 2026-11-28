@@ -106,7 +106,7 @@ public:
         const auto& segs = inst->wavetable->segments;
         const int n = static_cast<int>(segs.size());
         const int seg = clamp_segment(*inst);
-        char buf[32];
+        char buf[48];
         widgets::text(c, ui, 1, 2, "HARMONIC", gfx::kInkDim);
         std::snprintf(buf, sizeof buf, "%2d", harmonic_ + 1);
         widgets::value_field(c, ui, 10, 2, 3, buf, focused(kHarmonic), kHarmonic * 16);

@@ -14,7 +14,7 @@ namespace phos::io {
 
 // 2: instrument kinds (M5); 3: GB, SNES, echo, STRICT (M6); 4: loops, FX, sends, VAPOR (M7);
 // 5: per-track MIDI destination, CC automation lanes (M8)
-inline constexpr int kProjectSchemaVersion = 5;
+inline constexpr int kProjectSchemaVersion = 6;
 inline constexpr const char* kProjectFile = "project.json";
 inline constexpr const char* kAutosaveFile = "project.autosave.json";
 // The autosave's own copy of the audio (samples/, loops/, brr/, wavetables/ inside it), so an

@@ -31,8 +31,13 @@ constexpr Theme mono(std::string_view name, const Base& b) {
     return t;
 }
 
+constexpr Theme unlit(Theme t) {
+    t.glow = false;
+    return t;
+}
+
 // Each base: bg, field, grid, dim, text, bright, accent, warn, pen, shade, ramp1..ramp6.
-constexpr std::array<Theme, 6> kThemes = {{
+constexpr std::array<Theme, 7> kThemes = {{
     // P1 green phosphor.
     mono("GREEN",
          {rgb(0x000000), rgb(0x053A1A), rgb(0x0E6B33), rgb(0x138544), rgb(0x2BE07A), rgb(0x7DFFB0), rgb(0x3FF0E0),
@@ -68,6 +73,13 @@ constexpr std::array<Theme, 6> kThemes = {{
       // tab, select, cursor, level low, level mid, level high, play, label
       rgb(0x2EC4F0), rgb(0xFFC23D), rgb(0xFF4FD8), rgb(0x3DDC6E), rgb(0xFFD93D), rgb(0xFF4D4D), rgb(0x46E27A),
       rgb(0xA9C8FF)}},
+    // LCD: a 1990s monochrome LCD, as in early handheld consoles and pocket organisers. Inverted:
+    // dark olive "pixels" on a yellow-green panel; "bright" means darkest, so inverse video is a dark
+    // band with panel-coloured text. The depth ramp runs from faint (back) to near-black (front).
+    unlit(mono("LCD",
+               {rgb(0xB4BE3E), rgb(0xA3AE36), rgb(0x8E9A34), rgb(0x66742A), rgb(0x2C3E16), rgb(0x16240C),
+                rgb(0x3F5A1A), rgb(0x4E3A0C), rgb(0x0E1A08), rgb(0xA7B239), rgb(0x99A535), rgb(0x84922F),
+                rgb(0x6B7A28), rgb(0x4F6020), rgb(0x354818), rgb(0x1C2E0E)})),
 }};
 
 bool iequals(std::string_view a, std::string_view b) {

@@ -171,7 +171,7 @@ model::SynthParams synth_from(const json& j) {
 
 
 std::string sample_file(int index, const model::Instrument& inst, const std::string& dir) {
-    char prefix[8];
+    char prefix[16];
     std::snprintf(prefix, sizeof prefix, "%02d_", index + 1);
     return dir + "samples/" + prefix + sanitize(inst.sample->name) + ".wav";
 }

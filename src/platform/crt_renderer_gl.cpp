@@ -150,23 +150,34 @@ bool CrtRenderer::init(const std::filesystem::path& shader_dir, int canvas_w, in
     }
     glGenVertexArrays(1, &vao_);
 
-    glGenTextures(1, &canvas_tex_);
-    glBindTexture(GL_TEXTURE_2D, canvas_tex_);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_R8UI, canvas_w, canvas_h, 0, GL_RED_INTEGER, GL_UNSIGNED_BYTE, nullptr);
-    set_texture_params(GL_NEAREST);
-
     glGenTextures(1, &palette_tex_);
     glBindTexture(GL_TEXTURE_2D, palette_tex_);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, gfx::kPaletteSize, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
     set_texture_params(GL_NEAREST);
+    return allocate(canvas_w, canvas_h, error);
+}
 
+// The canvas texture and the persistence / bloom targets for a canvas of w x h (again when the side
+// strips change the screen width).
+bool CrtRenderer::allocate(int w, int h, std::string* error) {
+    canvas_w_ = w;
+    canvas_h_ = h;
+    if (canvas_tex_) {
+        glDeleteTextures(1, &canvas_tex_);
+    }
+    glGenTextures(1, &canvas_tex_);
+    glBindTexture(GL_TEXTURE_2D, canvas_tex_);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_R8UI, w, h, 0, GL_RED_INTEGER, GL_UNSIGNED_BYTE, nullptr);
+    set_texture_params(GL_NEAREST);
     for (auto& t : persist_) {
-        if (!make_target(t, canvas_w, canvas_h, error)) {
+        destroy_target(t);
+        if (!make_target(t, w, h, error)) {
             return false;
         }
     }
     for (auto& t : bloom_) {
-        if (!make_target(t, canvas_w / 2, canvas_h / 2, error)) {
+        destroy_target(t);
+        if (!make_target(t, w / 2, h / 2, error)) {
             return false;
         }
     }
@@ -179,6 +190,12 @@ void CrtRenderer::render(const gfx::Canvas& canvas, const gfx::Theme& theme, con
     glDisable(GL_DEPTH_TEST);
     glBindVertexArray(vao_);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    if (canvas.width() != canvas_w_ || canvas.height() != canvas_h_) {
+        std::string error;
+        if (!allocate(canvas.width(), canvas.height(), &error)) {
+            return; // keeps the last frame; the next size change retries
+        }
+    }
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, canvas_tex_);
@@ -218,21 +235,26 @@ void CrtRenderer::render(const gfx::Canvas& canvas, const gfx::Theme& theme, con
     glDrawArrays(GL_TRIANGLES, 0, 3);
     const GLuint image = persist_[static_cast<std::size_t>(current_)].texture;
 
-    // 2) Bloom at half resolution: bright-pass + horizontal, then vertical.
-    glUseProgram(blur_prog_);
-    glUniform1i(loc(blur_prog_, "uImage"), 0);
-    glViewport(0, 0, canvas_w_ / 2, canvas_h_ / 2);
-    glBindFramebuffer(GL_FRAMEBUFFER, bloom_[0].fbo);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, image);
-    glUniform2f(loc(blur_prog_, "uDirection"), 2.0f / static_cast<float>(canvas_w_), 0.0f);
-    glUniform1f(loc(blur_prog_, "uThreshold"), 0.30f);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-    glBindFramebuffer(GL_FRAMEBUFFER, bloom_[1].fbo);
-    glBindTexture(GL_TEXTURE_2D, bloom_[0].texture);
-    glUniform2f(loc(blur_prog_, "uDirection"), 0.0f, 2.0f / static_cast<float>(canvas_h_));
-    glUniform1f(loc(blur_prog_, "uThreshold"), 0.0f);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    // 2) Bloom at half resolution: bright-pass + horizontal, then vertical. Skipped when it cannot
+    // show (CRT pass off, an unlit theme such as LCD, or BLOOM 0): two of the four passes, which
+    // matters on small GPUs (Raspberry Pi 4).
+    const bool bloom = crt.enabled && theme.glow && crt.bloom > 0.0f;
+    if (bloom) {
+        glUseProgram(blur_prog_);
+        glUniform1i(loc(blur_prog_, "uImage"), 0);
+        glViewport(0, 0, canvas_w_ / 2, canvas_h_ / 2);
+        glBindFramebuffer(GL_FRAMEBUFFER, bloom_[0].fbo);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, image);
+        glUniform2f(loc(blur_prog_, "uDirection"), 2.0f / static_cast<float>(canvas_w_), 0.0f);
+        glUniform1f(loc(blur_prog_, "uThreshold"), 0.30f);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glBindFramebuffer(GL_FRAMEBUFFER, bloom_[1].fbo);
+        glBindTexture(GL_TEXTURE_2D, bloom_[0].texture);
+        glUniform2f(loc(blur_prog_, "uDirection"), 0.0f, 2.0f / static_cast<float>(canvas_h_));
+        glUniform1f(loc(blur_prog_, "uThreshold"), 0.0f);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+    }
 
     // 3) CRT pass into the letterboxed viewport (GL viewport origin is bottom-left).
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -250,9 +272,10 @@ void CrtRenderer::render(const gfx::Canvas& canvas, const gfx::Theme& theme, con
     glUniform2f(loc(crt_prog_, "uCanvasSize"), static_cast<float>(canvas_w_), static_cast<float>(canvas_h_));
     glUniform2f(loc(crt_prog_, "uOutputSize"), static_cast<float>(viewport.w), static_cast<float>(viewport.h));
     glUniform1i(loc(crt_prog_, "uEnabled"), crt.enabled ? 1 : 0);
-    glUniform1f(loc(crt_prog_, "uScanlines"), crt.scanlines);
-    glUniform1f(loc(crt_prog_, "uMask"), crt.mask);
-    glUniform1f(loc(crt_prog_, "uBloomAmount"), crt.bloom);
+    // A reflective LCD theme does not glow: no bloom, no shadow mask, scanlines as a faint pixel grid.
+    glUniform1f(loc(crt_prog_, "uScanlines"), theme.glow ? crt.scanlines : crt.scanlines * 0.35f);
+    glUniform1f(loc(crt_prog_, "uMask"), theme.glow ? crt.mask : 0.0f);
+    glUniform1f(loc(crt_prog_, "uBloomAmount"), bloom ? crt.bloom : 0.0f);
     glUniform1f(loc(crt_prog_, "uVignette"), crt.vignette);
     glUniform1f(loc(crt_prog_, "uCurvature"), crt.curvature);
     glUniform1f(loc(crt_prog_, "uBrightness"), crt.brightness);

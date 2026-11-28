@@ -2786,7 +2786,7 @@
       "volumeDb": 0.0
     }
   ],
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "song": {
     "countInBars": 1,
     "currentSection": 0,

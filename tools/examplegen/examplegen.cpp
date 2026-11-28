@@ -1,7 +1,7 @@
 // examplegen: writes PHOSPHOR's example content into examples/ (no third-party audio; everything
 // is synthesised or rendered offline):
 //   examples/library/*.phinst      an instrument library (Game Boy, SNES, vaporwave, shapes, GM)
-//   examples/projects/*.phosphor   GB ADVENTURE, SNES FIELD, VAPOR PLAZA, WAVEFORMS: built by
+//   examples/projects/*.phosphor   GB ADVENTURE, SNES FIELD, VAPOR PLAZA, GATED DRUMS, WAVEFORMS: built by
 //                                  loading instruments back from that library, like a user would
 //   examples/midi/GB ADVENTURE.mid the GB song as MIDI, for "IMPORT" with the library
 //
@@ -187,7 +187,7 @@ void save(const Document& d, const fs::path& dir, const char* name) {
     if (!io::save_project(bundle, d, &error)) {
         die(error);
     }
-    std::printf("  project: %s (ARAM %.1f KB)\n", bundle.filename().string().c_str(), io::aram_bytes(d) / 1024.0);
+    std::printf("  project: %s (ARAM %.1f KB)\n", bundle.filename().string().c_str(), static_cast<double>(io::aram_bytes(d)) / 1024.0);
 }
 
 // --- GB ADVENTURE ----------------------------------------------------------------------------
@@ -441,6 +441,61 @@ Document vapor_plaza() {
     return d;
 }
 
+// --- GATED DRUMS ------------------------------------------------------------------------------
+// 96 BPM, A minor. The same two bars of drums four times: dry, then through each GATE mode (the
+// 1980s gated reverb): GATED (a room cut by a gate keyed from the drums), NONLIN (a flat burst that
+// stops dead), REVERSE (a swelling burst). Four drum tracks share one kit; each has its own insert.
+
+Document gated_drums() {
+    Document d;
+    Song& s = d.song;
+    track(s, 0, "DRY", d, "DRUM KIT");
+    track(s, 4, "BASS", d, "SYNTH BASS");
+    track(s, 5, "PAD", d, "VAPOR PAD");
+    const std::array<const char*, 4> names = {"DRY", "GATED", "NONLIN", "REVERSE"};
+    for (int t = 1; t < 4; ++t) {
+        s.tracks[static_cast<std::size_t>(t)].name = names[static_cast<std::size_t>(t)];
+        s.tracks[static_cast<std::size_t>(t)].instrument = 0;
+    }
+    s.patterns.clear(); // a new song starts with one empty pattern
+    // MODE, TIME ms, THRESH dB, TONE Hz, MIX.
+    s.tracks[1].inserts[0] = make_fx(FxType::Gate);
+    s.tracks[1].inserts[0].p = {0.0f, 250.0f, -12.0f, 9000.0f, 0.5f}; // hats stay below THRESH
+    s.tracks[2].inserts[0] = make_fx(FxType::Gate);
+    s.tracks[2].inserts[0].p = {1.0f, 240.0f, -24.0f, 8000.0f, 0.6f};
+    s.tracks[3].inserts[0] = make_fx(FxType::Gate);
+    s.tracks[3].inserts[0].p = {2.0f, 330.0f, -24.0f, 8000.0f, 0.5f};
+    for (int t = 0; t < 4; ++t) {
+        Pattern p = bars(names[static_cast<std::size_t>(t)], 2);
+        for (int beat = 0; beat < 8; ++beat) {
+            if (beat % 2 == 0) {
+                note(p, t, beat, 0.5, 36, 115); // kick on 1 and 3
+            } else if (beat != 7) {
+                note(p, t, beat, 0.5, 38, 120); // the big snare on 2 and 4
+            }
+            note(p, t, beat + 0.5, 0.25, 42, 40);
+        }
+        note(p, t, 2.75, 0.25, 36, 90);
+        // Tom fill on the last beat, high to low, into the next pattern.
+        const std::array<int, 4> fill = {45, 45, 43, 41};
+        for (std::size_t k = 0; k < fill.size(); ++k) {
+            note(p, t, 7.0 + 0.25 * static_cast<double>(k), 0.25, fill[k], 100 + 5 * static_cast<int>(k));
+        }
+        melody(p, 4, 0, {{45, 1.5}, {45, 0.5}, {45, 1}, {48, 1}, {41, 1.5}, {41, 0.5}, {43, 1}, {43, 1}}, 95);
+        chord(p, 5, 0, 4, {57, 60, 64}, 55);
+        chord(p, 5, 4, 4, {53, 57, 60, 65}, 55);
+        s.patterns.push_back(p);
+        s.sections[static_cast<std::size_t>(t)] = Section{t, 2, 960, 4, 4};
+    }
+    s.order = {0, 1, 2, 3};
+    s.play_mode = PlayMode::Song;
+    s.metronome = MetronomeMode::Off;
+    s.tracks[4].volume_db = -4.0f;
+    s.tracks[5].volume_db = -10.0f;
+    s.master_db = -2.0f;
+    return d;
+}
+
 // --- WAVEFORMS -------------------------------------------------------------------------------
 // One section per shape: the same two bars (an arpeggio, then a held note) on that shape's track,
 // so stepping through the song order (or the sections) compares them one after another.
@@ -512,6 +567,7 @@ int main(int argc, char** argv) {
     save(gb, projects, "GB ADVENTURE");
     save(snes_field(), projects, "SNES FIELD");
     save(vapor_plaza(), projects, "VAPOR PLAZA");
+    save(gated_drums(), projects, "GATED DRUMS");
     save(waveforms(), projects, "WAVEFORMS");
     fs::create_directories(root / "midi");
     std::string error;

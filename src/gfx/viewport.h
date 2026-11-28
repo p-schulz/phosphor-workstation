@@ -35,6 +35,23 @@ struct ViewportParams {
 // Where the canvas lands in the framebuffer (top-left origin, framebuffer pixels).
 Rect compute_viewport(const ViewportParams& p);
 
+// Side keys: touch / click strips left and right of the 4:3 canvas when the screen is wider
+// (16:9 panels, a MacBook screen, Sidecar). OFF: never. AUTO: when the margins hold at least
+// kSideMinW canvas pixels. ON: always; the canvas shrinks to make room if needed.
+enum class SideKeys { Off, Auto, On };
+inline constexpr int kSideMinW = 48;  // canvas pixels per strip
+inline constexpr int kSideMaxW = 112;
+std::string_view side_keys_name(SideKeys mode);
+std::optional<SideKeys> parse_side_keys(std::string_view name);
+
+// The whole screen: the canvas plus a side strip of `side_w` canvas pixels on each edge.
+// `viewport` covers (canvas_w + 2 * side_w) x canvas_h canvas pixels.
+struct ScreenLayout {
+    Rect viewport;
+    int side_w = 0;
+};
+ScreenLayout compute_screen_layout(const ViewportParams& p, SideKeys mode);
+
 // Pixel aspect when a panel of physical aspect `panel_aspect` (e.g. 4/3) shows a signal of
 // signal_w x signal_h (e.g. a cheap 4:3 controller fed 1920x1080). panel_aspect <= 0 means
 // "panel matches the signal" and returns 1.0.

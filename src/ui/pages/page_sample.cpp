@@ -207,7 +207,7 @@ private:
         const gfx::Rect box{kWaveX, kWaveTop, kWaveW, kWaveH};
         const int mid = box.y + box.h / 2;
         const auto x_of = [&](std::size_t frame) {
-            return box.x + static_cast<int>(static_cast<double>(frame) / std::max<std::size_t>(1, s.frames) * box.w);
+            return box.x + static_cast<int>(static_cast<double>(frame) / static_cast<double>(std::max<std::size_t>(1, s.frames)) * box.w);
         };
         // Selection band.
         c.fill_rect(gfx::Rect{x_of(sel_start_), box.y, std::max(1, x_of(sel_end_) - x_of(sel_start_)), box.h},

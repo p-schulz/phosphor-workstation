@@ -72,6 +72,7 @@ add "WAIT 1000";                 shot page-r "PR"
 add "STOP"
 add "INST 1"
 add "PC";                        shot page-c-gb "PC"
+themed theme-lcd LCD "PC"
 add "P3";                        shot page-3 "P3"
 add "P3 OUT";                    shot page-3-out "P3 OUT"
 add "PK";                        shot page-k "PK"
@@ -116,6 +117,13 @@ add "PH";                        shot page-h "PH"
 add "TESTCARD"
 add "WAIT 40"
 add "SHOT $OUT/phosphor-testcard.png"
+# Side keys: the window at 16:9, Page R in COLOR.
+add "PR"
+add "THEME COLOR"
+add "DISPLAY ASPECT 16:9"
+add "WAIT 60"
+add "SHOT $OUT/phosphor-side-keys.png"
+add "THEME GREEN"
 add "QUIT"
 
 # The stand-ins for a keyboard and a synth (CoreMIDI virtual ports).
@@ -138,6 +146,11 @@ done
 # the PNGs stay.
 if command -v sips >/dev/null 2>&1; then
     for f in "$OUT"/phosphor-*.png; do
-        sips -z 600 800 -s format jpeg -s formatOptions 85 "$f" --out "${f%.png}.jpg" >/dev/null && rm "$f"
+        h=600
+        w=800
+        case "$f" in
+        *side-keys*) h=540 w=960 ;; # 16:9
+        esac
+        sips -z "$h" "$w" -s format jpeg -s formatOptions 85 "$f" --out "${f%.png}.jpg" >/dev/null && rm "$f"
     done
 fi

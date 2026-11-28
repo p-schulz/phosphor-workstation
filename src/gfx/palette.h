@@ -47,6 +47,9 @@ struct Rgb {
 struct Theme {
     std::string_view name;
     std::array<Rgb, kPaletteSize> colors;
+    // Emissive screen (phosphor): the CRT pass adds bloom and the shadow mask. false = a reflective LCD:
+    // no glow, no mask, scanlines only as a faint pixel grid.
+    bool glow = true;
 };
 
 std::span<const Theme> all_themes();

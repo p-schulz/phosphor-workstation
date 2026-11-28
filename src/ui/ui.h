@@ -14,6 +14,7 @@
 #include "ui/input.h"
 #include "ui/key_map.h"
 #include "ui/page.h"
+#include "ui/side_keys.h"
 
 namespace phos::ui {
 
@@ -38,8 +39,16 @@ public:
     void update(const InputState& input);
     // Renders chrome + current page into `canvas` (light pen not included).
     void draw(gfx::Canvas& canvas);
-    // Light-pen crosshair overlay; drawn onto the copy that goes to the screen.
-    void draw_pen(gfx::Canvas& canvas) const;
+    // Light-pen crosshair overlay; drawn onto the copy that goes to the screen, whose canvas part
+    // starts at x = origin_x (the width of a side strip).
+    void draw_pen(gfx::Canvas& canvas, int origin_x = 0) const;
+
+    // Side keys (side_keys.h): the strip width in canvas pixels the host laid out (0 = none), the
+    // strips drawn onto the screen copy, and what a key does.
+    void set_side_width(int w) { side_.set_width(w); }
+    const SideKeys& side_keys() const { return side_; }
+    void draw_side_keys(gfx::Canvas& screen) const { side_.draw(screen, *this); }
+    void side_key(SideKey key);
 
     // Runs a command line as if typed. Returns false if it produced an error message.
     bool execute(std::string_view text);
@@ -90,6 +99,8 @@ private:
     void handle_command_key(const InputEvent& event);
     void handle_chrome_zone(int id);
     void handle_pen(const InputState& input);
+    void value_step(int dir);
+    void step_page(int dir);
     std::optional<std::string> run_ui_command(const Command& cmd);
     bool handle_keyjazz(const InputEvent& event);
     void release_keyjazz_notes();
@@ -113,6 +124,7 @@ private:
     mutable std::vector<Zone> zones_;
     std::vector<Zone> hit_zones_; // zones from the last completed draw
     bool pen_inside_ = false;
+    SideKeys side_;
     float pen_x_ = 0.0f;
     float pen_y_ = 0.0f;
     int hover_index_ = -1;

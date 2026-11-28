@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="780" viewBox="-10 -10 320 270" font-family="Helvetica, Arial, sans-serif">
+<rect x="-10" y="-10" width="320" height="270" fill="#f4f4f0"/>
+<rect x="0" y="0" width="300" height="240" rx="8" fill="#2b2d2f" stroke="#111" stroke-width="0.8"/>
+<line x1="184" y1="0" x2="184" y2="240" stroke="#e0a030" stroke-width="0.6" stroke-dasharray="3 2"/>
+<text x="186" y="7" font-size="3.5" fill="#e0a030">print seam (two halves for a 256 mm bed)</text>
+<rect x="12" y="12" width="166" height="99" rx="2" fill="#151617" stroke="#555" stroke-width="0.5"/>
+<rect x="17.7" y="18" width="154.6" height="86.9" fill="#0d2a12" stroke="#3a6" stroke-width="0.4"/>
+<rect x="37.1" y="18" width="115.9" height="86.9" fill="#123d1a"/>
+<rect x="18.7" y="20.0" width="17.4" height="15.5" fill="none" stroke="#5c8" stroke-width="0.3"/>
+<rect x="153.9" y="20.0" width="17.4" height="15.5" fill="none" stroke="#5c8" stroke-width="0.3"/>
+<rect x="18.7" y="36.9" width="17.4" height="15.5" fill="none" stroke="#5c8" stroke-width="0.3"/>
+<rect x="153.9" y="36.9" width="17.4" height="15.5" fill="none" stroke="#5c8" stroke-width="0.3"/>
+<rect x="18.7" y="53.7" width="17.4" height="15.5" fill="none" stroke="#5c8" stroke-width="0.3"/>
+<rect x="153.9" y="53.7" width="17.4" height="15.5" fill="none" stroke="#5c8" stroke-width="0.3"/>
+<rect x="18.7" y="70.6" width="17.4" height="15.5" fill="none" stroke="#5c8" stroke-width="0.3"/>
+<rect x="153.9" y="70.6" width="17.4" height="15.5" fill="none" stroke="#5c8" stroke-width="0.3"/>
+<rect x="18.7" y="87.4" width="17.4" height="15.5" fill="none" stroke="#5c8" stroke-width="0.3"/>
+<rect x="153.9" y="87.4" width="17.4" height="15.5" fill="none" stroke="#5c8" stroke-width="0.3"/>
+<text x="95" y="62" font-size="6" fill="#7d7" text-anchor="middle">PHOSPHOR 4:3 picture</text>
+<text x="95" y="70" font-size="4" fill="#7d7" text-anchor="middle">7" touch, 1280 × 720, side keys left / right</text>
+<circle cx="240" cy="40" r="19" fill="#444" stroke="#111" stroke-width="0.4"/>
+<circle cx="240" cy="40" r="15.2" fill="#555"/>
+<line x1="240" y1="24.8" x2="240" y2="33.4" stroke="#ddd" stroke-width="0.8"/>
+<text x="240" y="63.5" font-size="3.2" fill="#ccc" text-anchor="middle">DATA WHEEL</text>
+<rect x="199.0" y="34.0" width="12" height="12" rx="1.5" fill="#d9d9d6" stroke="#111" stroke-width="0.3"/>
+<text x="205.0" y="41.1" font-size="3.2" fill="#222" text-anchor="middle">−</text>
+<rect x="269.0" y="34.0" width="12" height="12" rx="1.5" fill="#d9d9d6" stroke="#111" stroke-width="0.3"/>
+<text x="275.0" y="41.1" font-size="3.2" fill="#222" text-anchor="middle">+</text>
+<rect x="234.0" y="76.0" width="12" height="12" rx="1.5" fill="#d9d9d6" stroke="#111" stroke-width="0.3"/>
+<polygon points="240.0,78.8 236.8,84.2 243.2,84.2" fill="#222"/>
+<rect x="216.0" y="94.0" width="12" height="12" rx="1.5" fill="#d9d9d6" stroke="#111" stroke-width="0.3"/>
+<polygon points="218.8,100.0 224.2,96.8 224.2,103.2" fill="#222"/>
+<rect x="234.0" y="94.0" width="12" height="12" rx="1.5" fill="#d9d9d6" stroke="#111" stroke-width="0.3"/>
+<text x="240.0" y="100.9" font-size="2.6" fill="#222" text-anchor="middle">ENTER</text>
+<rect x="252.0" y="94.0" width="12" height="12" rx="1.5" fill="#d9d9d6" stroke="#111" stroke-width="0.3"/>
+<polygon points="261.2,100.0 255.8,96.8 255.8,103.2" fill="#222"/>
+<rect x="234.0" y="112.0" width="12" height="12" rx="1.5" fill="#d9d9d6" stroke="#111" stroke-width="0.3"/>
+<polygon points="240.0,121.2 236.8,115.7 243.2,115.7" fill="#222"/>
+<rect x="199.0" y="76.0" width="12" height="12" rx="1.5" fill="#d9d9d6" stroke="#111" stroke-width="0.3"/>
+<text x="205.0" y="82.9" font-size="2.6" fill="#222" text-anchor="middle">INDEX</text>
+<rect x="269.0" y="76.0" width="12" height="12" rx="1.5" fill="#d9d9d6" stroke="#111" stroke-width="0.3"/>
+<text x="275.0" y="82.9" font-size="2.6" fill="#222" text-anchor="middle">BACK</text>
+<rect x="199.0" y="112.0" width="12" height="12" rx="1.5" fill="#d9d9d6" stroke="#111" stroke-width="0.3"/>
+<text x="205.0" y="119.0" font-size="2.8" fill="#222" text-anchor="middle">ESC</text>
+<rect x="269.0" y="112.0" width="12" height="12" rx="1.5" fill="#e8c45a" stroke="#111" stroke-width="0.3"/>
+<text x="275.0" y="118.9" font-size="2.6" fill="#222" text-anchor="middle">SHIFT</text>
+<circle cx="35" cy="138" r="9" fill="#444" stroke="#111" stroke-width="0.4"/>
+<circle cx="35" cy="138" r="7.2" fill="#555"/>
+<line x1="35" y1="130.8" x2="35" y2="134.8" stroke="#ddd" stroke-width="0.8"/>
+<text x="35" y="151.5" font-size="3.2" fill="#ccc" text-anchor="middle">E1 VALUE</text>
+<circle cx="77" cy="138" r="9" fill="#444" stroke="#111" stroke-width="0.4"/>
+<circle cx="77" cy="138" r="7.2" fill="#555"/>
+<line x1="77" y1="130.8" x2="77" y2="134.8" stroke="#ddd" stroke-width="0.8"/>
+<text x="77" y="151.5" font-size="3.2" fill="#ccc" text-anchor="middle">E2 FIELD</text>
+<circle cx="119" cy="138" r="9" fill="#444" stroke="#111" stroke-width="0.4"/>
+<circle cx="119" cy="138" r="7.2" fill="#555"/>
+<line x1="119" y1="130.8" x2="119" y2="134.8" stroke="#ddd" stroke-width="0.8"/>
+<text x="119" y="151.5" font-size="3.2" fill="#ccc" text-anchor="middle">E3 PAGE</text>
+<circle cx="161" cy="138" r="9" fill="#444" stroke="#111" stroke-width="0.4"/>
+<circle cx="161" cy="138" r="7.2" fill="#555"/>
+<line x1="161" y1="130.8" x2="161" y2="134.8" stroke="#ddd" stroke-width="0.8"/>
+<text x="161" y="151.5" font-size="3.2" fill="#ccc" text-anchor="middle">E4 MASTER</text>
+<rect x="19.0" y="184.0" width="22" height="12" rx="1.5" fill="#7bc47f" stroke="#111" stroke-width="0.3"/>
+<text x="30.0" y="191.1" font-size="3.0" fill="#222" text-anchor="middle">PLAY</text>
+<rect x="51.0" y="184.0" width="22" height="12" rx="1.5" fill="#d9d9d6" stroke="#111" stroke-width="0.3"/>
+<text x="62.0" y="191.1" font-size="3.0" fill="#222" text-anchor="middle">STOP</text>
+<rect x="83.0" y="184.0" width="22" height="12" rx="1.5" fill="#e06c5a" stroke="#111" stroke-width="0.3"/>
+<text x="94.0" y="191.1" font-size="3.0" fill="#222" text-anchor="middle">REC</text>
+<rect x="115.0" y="184.0" width="22" height="12" rx="1.5" fill="#d9d9d6" stroke="#111" stroke-width="0.3"/>
+<text x="126.0" y="191.1" font-size="3.0" fill="#222" text-anchor="middle">CONT</text>
+<rect x="147.0" y="184.0" width="22" height="12" rx="1.5" fill="#e8c45a" stroke="#111" stroke-width="0.3"/>
+<text x="158.0" y="191.1" font-size="3.0" fill="#222" text-anchor="middle">PANIC</text>
+<rect x="197.5" y="140.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="207.0" y="151.6" font-size="4.5" fill="#222" text-anchor="middle">1</text>
+<rect x="219.5" y="140.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="229.0" y="151.6" font-size="4.5" fill="#222" text-anchor="middle">2</text>
+<rect x="241.5" y="140.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="251.0" y="151.6" font-size="4.5" fill="#222" text-anchor="middle">3</text>
+<rect x="263.5" y="140.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="273.0" y="151.6" font-size="4.5" fill="#222" text-anchor="middle">4</text>
+<rect x="197.5" y="162.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="207.0" y="173.6" font-size="4.5" fill="#222" text-anchor="middle">5</text>
+<rect x="219.5" y="162.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="229.0" y="173.6" font-size="4.5" fill="#222" text-anchor="middle">6</text>
+<rect x="241.5" y="162.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="251.0" y="173.6" font-size="4.5" fill="#222" text-anchor="middle">7</text>
+<rect x="263.5" y="162.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="273.0" y="173.6" font-size="4.5" fill="#222" text-anchor="middle">8</text>
+<rect x="197.5" y="184.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="207.0" y="195.6" font-size="4.5" fill="#222" text-anchor="middle">0</text>
+<rect x="219.5" y="184.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="229.0" y="195.6" font-size="4.5" fill="#222" text-anchor="middle">C</text>
+<rect x="241.5" y="184.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="251.0" y="195.6" font-size="4.5" fill="#222" text-anchor="middle">D</text>
+<rect x="263.5" y="184.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="273.0" y="195.6" font-size="4.5" fill="#222" text-anchor="middle">K</text>
+<rect x="197.5" y="206.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="207.0" y="217.6" font-size="4.5" fill="#222" text-anchor="middle">L</text>
+<rect x="219.5" y="206.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="229.0" y="217.6" font-size="4.5" fill="#222" text-anchor="middle">M</text>
+<rect x="241.5" y="206.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="251.0" y="217.6" font-size="4.5" fill="#222" text-anchor="middle">R</text>
+<rect x="263.5" y="206.5" width="19" height="19" rx="1.5" fill="#c9cfd6" stroke="#111" stroke-width="0.3"/>
+<text x="273.0" y="217.6" font-size="4.5" fill="#222" text-anchor="middle">S</text>
+<text x="240" y="236" font-size="3.5" fill="#ccc" text-anchor="middle">4 × 4 PAGE KEYS (v2: velocity pads)</text>
+<text x="95" y="208" font-size="3.5" fill="#ccc" text-anchor="middle">TRANSPORT</text>
+<line x1="0" y1="246" x2="300" y2="246" stroke="#333" stroke-width="0.3"/>
+<text x="150" y="252" font-size="4" fill="#333" text-anchor="middle">300 mm</text>
+<line x1="-5" y1="0" x2="-5" y2="240" stroke="#333" stroke-width="0.3"/>
+<text x="-7" y="120" font-size="4" fill="#333" text-anchor="middle" transform="rotate(-90 -7 120)">240 mm</text>
+<text x="150" y="-3" font-size="3.5" fill="#333" text-anchor="middle">rear: USB-C power · power button · 2 × USB-A · audio in/out · (MIDI DIN via USB later)</text>
+</svg>

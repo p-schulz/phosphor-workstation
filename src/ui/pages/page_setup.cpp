@@ -34,6 +34,7 @@ enum Field : int {
     kScanlines,
     kMask,
     kBloom,
+    kSideKeys,
     kPersist,
     kVignette,
     kCurve,
@@ -57,6 +58,7 @@ constexpr int zone_of(int field, int option = 0) { return field * 16 + option; }
 
 constexpr std::array<std::string_view, 2> kOffOn = {"OFF", "ON"};
 constexpr std::array<std::string_view, 3> kScales = {"FIT", "INTEGER", "STRETCH"};
+constexpr std::array<std::string_view, 3> kSideKeyModes = {"OFF", "AUTO", "ON"}; // gfx::SideKeys order
 constexpr std::array<std::string_view, 1> kNext = {"NEXT"};
 constexpr std::array<std::string_view, 3> kTests = {"OFF", "TONE", "CLICK"};
 constexpr std::array<std::string_view, 4> kPageKeys = {"OFF", "CTRL", "ALT", "CMD"};
@@ -71,7 +73,9 @@ constexpr int kValueCol = kLabelCol + kEqCols + 2;
 constexpr int kRightLabelCol = 34;
 constexpr int kRightValueCol = kRightLabelCol + kEqCols + 2;
 
-bool is_number(int f) { return (f >= kOverscanL && f <= kOverscanB) || (f >= kScanlines && f <= kBright); }
+bool is_number(int f) {
+    return (f >= kOverscanL && f <= kOverscanB) || (f >= kScanlines && f <= kBright && f != kSideKeys);
+}
 
 float* number_ref(DisplayProfile& p, int f) {
     switch (f) {
@@ -153,6 +157,7 @@ int option_count(int f) {
     case kCrt:
         return 2;
     case kScale:
+    case kSideKeys:
         return 3;
     case kPanel:
         return static_cast<int>(panel_aspect_choices().size());
@@ -173,6 +178,8 @@ int option_value(const DisplayProfile& p, int f) {
         return p.crt.enabled ? 1 : 0;
     case kScale:
         return static_cast<int>(p.scale);
+    case kSideKeys:
+        return static_cast<int>(p.side_keys);
     case kPanel:
         return panel_index(p);
     case kTheme:
@@ -200,6 +207,9 @@ void set_option(DisplayProfile& p, int f, int v) {
         break;
     case kScale:
         p.scale = static_cast<gfx::ScaleMode>(v);
+        break;
+    case kSideKeys:
+        p.side_keys = static_cast<gfx::SideKeys>(v);
         break;
     case kPanel:
         p.panel_aspect = panel_aspect_choices()[static_cast<std::size_t>(v)].value;
@@ -464,7 +474,7 @@ public:
             widgets::value_field(c, ui, col + 2, 8, 5, number_text(f, *number_ref(copy, f)), focused(f), zone_of(f));
         }
 
-        std::array<std::string_view, 6> themes{}; // every theme in gfx/palette.cpp
+        std::array<std::string_view, 7> themes{}; // every theme in gfx/palette.cpp
         for (std::size_t i = 0; i < themes.size() && i < gfx::all_themes().size(); ++i) {
             themes[i] = gfx::all_themes()[i].name;
         }
@@ -477,6 +487,7 @@ public:
         draw_number(c, ui, kScanlines, kLabelCol, kValueCol, 12, "SCANLINES", p, fields);
         draw_number(c, ui, kMask, kLabelCol, kValueCol, 13, "MASK", p, fields);
         draw_number(c, ui, kBloom, kLabelCol, kValueCol, 14, "BLOOM", p, fields);
+        draw_options(c, ui, kSideKeys, kLabelCol, kValueCol, 15, "SIDE KEYS", kSideKeyModes, p, fields);
         draw_number(c, ui, kPersist, kRightLabelCol, kRightValueCol, 12, "PERSIST", p, fields);
         draw_number(c, ui, kVignette, kRightLabelCol, kRightValueCol, 13, "VIGNETTE", p, fields);
         draw_number(c, ui, kCurve, kRightLabelCol, kRightValueCol, 14, "CURVATURE", p, fields);

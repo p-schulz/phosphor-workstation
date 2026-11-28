@@ -22,6 +22,7 @@ public:
     CrtRenderer& operator=(const CrtRenderer&) = delete;
 
     bool init(const std::filesystem::path& shader_dir, int canvas_w, int canvas_h, std::string* error);
+    // render() takes any canvas size: a different width (side strips) reallocates the targets.
 
     // `viewport` is top-left origin in framebuffer pixels; `dt_s` drives the persistence decay.
     void render(const gfx::Canvas& canvas, const gfx::Theme& theme, const ui::CrtParams& crt,
@@ -35,6 +36,7 @@ private:
         unsigned int texture = 0;
         unsigned int fbo = 0;
     };
+    bool allocate(int w, int h, std::string* error);
     bool make_target(Target& t, int w, int h, std::string* error);
     void destroy_target(Target& t);
 

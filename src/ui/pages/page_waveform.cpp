@@ -102,7 +102,7 @@ public:
         }
         char info[96];
         if (table) {
-            update(SourceKey{inst.wavetable, inst.wave, nullptr}, [&] {
+            rebuild(SourceKey{inst.wavetable, inst.wave, nullptr}, [&] {
                 return model::slices::from_wavetable(*inst.wavetable, inst.wave);
             });
             std::snprintf(info, sizeof info, "%s  %d SEGMENTS AS 128 SLICES", inst.name.c_str(),
@@ -121,7 +121,7 @@ public:
             const double hz = 440.0 * std::pow(2.0, (root - 69 + p.fine_cents / 100.0) / 12.0);
             const double period = s.sample_rate / hz;
             const auto view = value_[kView] == 0 ? model::slices::SampleView::Cycle : model::slices::SampleView::Span;
-            update(SourceKey{nullptr, {}, inst.sample, start, end, period, value_[kView]},
+            rebuild(SourceKey{nullptr, {}, inst.sample, start, end, period, value_[kView]},
                    [&] { return model::slices::from_sample(s, start, end, period, view); });
             const double secs = s.sample_rate ? static_cast<double>(end - start) / s.sample_rate : 0.0;
             if (view == model::slices::SampleView::Cycle) {
@@ -172,7 +172,7 @@ private:
         return inst.kind != model::InstrumentKind::Wavetable && sample_of(inst) != nullptr;
     }
 
-    template <class Build> void update(const SourceKey& key, Build build) const {
+    template <class Build> void rebuild(const SourceKey& key, Build build) const {
         if (!built_ || !(key == key_)) {
             slices_ = build();
             key_ = key;

@@ -54,6 +54,7 @@ json profile_to_json(const DisplayProfile& p) {
     j["fullscreen"] = p.fullscreen;
     j["autoApply"] = p.auto_apply;
     j["scale"] = std::string(gfx::scale_mode_name(p.scale));
+    j["sideKeys"] = std::string(gfx::side_keys_name(p.side_keys));
     j["panelAspect"] = panel_aspect_label(p.panel_aspect);
     j["overscan"] = json{{"left", r3(p.overscan.left)},
                          {"right", r3(p.overscan.right)},
@@ -99,6 +100,7 @@ DisplayProfile profile_from_json(const json& j) {
     p.fullscreen = j.value("fullscreen", p.fullscreen);
     p.auto_apply = j.value("autoApply", p.auto_apply);
     p.scale = gfx::parse_scale_mode(j.value("scale", std::string("FIT"))).value_or(gfx::ScaleMode::Fit);
+    p.side_keys = gfx::parse_side_keys(j.value("sideKeys", std::string("AUTO"))).value_or(gfx::SideKeys::Auto);
     if (j.contains("panelAspect")) {
         p.panel_aspect = parse_panel_aspect(j["panelAspect"]);
     }
